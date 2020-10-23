@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
 
 class CustomDrawerHeader extends StatelessWidget {
   @override
@@ -22,30 +23,43 @@ class CustomDrawerHeader extends StatelessWidget {
           const SizedBox(width: 20),
           //coluna informartiva user
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Acesse sua conta imadiatamente!",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            child: InkWell(
+              splashColor: Colors.deepPurple,
+              onTap: () => {
+                //fechar drawer
+                Navigator.of(context).pop(),
+
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => LoginScreen(),
                   ),
-                  overflow: TextOverflow.fade,
-                ),
-                Divider(color: Colors.white),
-                Text(
-                  "Clique aqui !!! ",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
+                )
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Acesse sua conta imadiatamente!",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.fade,
                   ),
-                  overflow: TextOverflow.fade,
-                ),
-              ],
+                  Divider(color: Colors.white),
+                  Text(
+                    "Clique aqui !!! ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    overflow: TextOverflow.fade,
+                  ),
+                ],
+              ),
             ),
           )
         ],
