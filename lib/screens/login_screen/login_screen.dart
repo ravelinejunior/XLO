@@ -11,15 +11,15 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Card(
-          elevation: 10,
-          shadowColor: Colors.white,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          margin: const EdgeInsets.symmetric(horizontal: 24),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Form(
+        child: SingleChildScrollView(
+          child: Card(
+            elevation: 10,
+            shadowColor: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            margin: const EdgeInsets.symmetric(horizontal: 24),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -139,36 +139,35 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.grey,
                     thickness: 1,
                   ),
-                  GestureDetector(
+                  const SizedBox(height: 24),
+                  InkWell(
+                    splashColor: Colors.purple,
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => SignupScreen(),
                     )),
-                    child: SizedBox(
+                    child: Container(
                       height: 24,
                       child: Wrap(
                         alignment: WrapAlignment.center,
                         children: [
-                          Expanded(
-                            child: Text(
-                              'Não tem uma conta? ',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
+                          Text(
+                            'Não tem uma conta? ',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          Expanded(
-                            child: Text(
-                              'Cadastre-se',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.purple,
-                                decoration: TextDecoration.underline,
-                              ),
+                          Text(
+                            'Cadastre-se',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.purple,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 100),
                 ],
               ),
             ),
