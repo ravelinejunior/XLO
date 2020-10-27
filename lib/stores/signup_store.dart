@@ -1,0 +1,103 @@
+import 'package:mobx/mobx.dart';
+import 'package:olx_project_parse/helpers/extensions.dart';
+part 'signup_store.g.dart';
+
+class SignupStore = _SignupStoreBase with _$SignupStore;
+
+abstract class _SignupStoreBase with Store {
+  //name
+  @observable
+  String name;
+
+  @action
+  void setName(String value) => name = value;
+
+  @computed
+  bool get nameValid => name != null && name.length > 6;
+  String get nameError {
+    if (name == null || nameValid) {
+      return null;
+    } else if (name.isEmpty) {
+      return "Campo obrigatório";
+    } else {
+      return "Nome muito curto";
+    }
+  }
+
+  //email
+  @observable
+  String email;
+
+  @action
+  void setEmail(String value) => email = value;
+
+  @computed
+  bool get emailValid => email != null && email.isEmailValid();
+  String get emailError {
+    if (email == null || emailValid) {
+      return null;
+    } else if (email.isEmpty) {
+      return "Campo obrigatório!";
+    } else {
+      return "Formato de email incorreto\nEx..: email@email.com";
+    }
+  }
+
+  //phone
+  @observable
+  String phone;
+
+  @action
+  void setPhone(String value) => phone = value;
+
+  @computed
+  bool get phoneValid => phone != null && phone.length >= 14;
+  String get phoneError {
+    if (phone == null || phoneValid) {
+      return null;
+    } else if (phone.isEmpty) {
+      return "Campo obrigatório!";
+    } else {
+      return "Formato de telefone incorreto\nEx..: 31-975903333";
+    }
+  }
+
+  //password
+  @observable
+  String password;
+
+  @action
+  void setPassword(String value) => password = value;
+
+  @computed
+  bool get passwordValid => password != null && password.length >= 6;
+  String get passwordError {
+    if (password == null || passwordValid) {
+      return null;
+    } else if (password.isEmpty) {
+      return "Campo obrigatório!";
+    } else {
+      return "Mínimo de 6 caracters";
+    }
+  }
+
+  //password
+  @observable
+  String passwordCopy;
+
+  @action
+  void setPasswordCopy(String value) => passwordCopy = value;
+
+  @computed
+  bool get passwordCopyValid =>
+      passwordCopy != null && passwordCopy == password;
+  String get passwordCopyError {
+    if (passwordCopy == null || passwordCopyValid) {
+      return null;
+    } else if (passwordCopy.isEmpty) {
+      return "Campo obrigatório!";
+    } else {
+      return "Senhas não coicidem.";
+    }
+  }
+}
