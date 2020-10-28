@@ -44,6 +44,20 @@ mixin _$SignupStore on _SignupStoreBase, Store {
           () => super.passwordCopyValid,
           name: '_SignupStoreBase.passwordCopyValid'))
       .value;
+  Computed<bool> _$isFormValidComputed;
+
+  @override
+  bool get isFormValid =>
+      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
+              name: '_SignupStoreBase.isFormValid'))
+          .value;
+  Computed<Function> _$signupButtonPressedComputed;
+
+  @override
+  Function get signupButtonPressed => (_$signupButtonPressedComputed ??=
+          Computed<Function>(() => super.signupButtonPressed,
+              name: '_SignupStoreBase.signupButtonPressed'))
+      .value;
 
   final _$nameAtom = Atom(name: '_SignupStoreBase.name');
 
@@ -120,6 +134,21 @@ mixin _$SignupStore on _SignupStoreBase, Store {
     });
   }
 
+  final _$loadingAtom = Atom(name: '_SignupStoreBase.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
   final _$_SignupStoreBaseActionController =
       ActionController(name: '_SignupStoreBase');
 
@@ -179,6 +208,17 @@ mixin _$SignupStore on _SignupStoreBase, Store {
   }
 
   @override
+  dynamic setLoading(bool value) {
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setLoading');
+    try {
+      return super.setLoading(value);
+    } finally {
+      _$_SignupStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
@@ -186,11 +226,14 @@ email: ${email},
 phone: ${phone},
 password: ${password},
 passwordCopy: ${passwordCopy},
+loading: ${loading},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},
 passwordValid: ${passwordValid},
-passwordCopyValid: ${passwordCopyValid}
+passwordCopyValid: ${passwordCopyValid},
+isFormValid: ${isFormValid},
+signupButtonPressed: ${signupButtonPressed}
     ''';
   }
 }

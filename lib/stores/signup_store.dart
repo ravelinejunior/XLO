@@ -100,4 +100,29 @@ abstract class _SignupStoreBase with Store {
       return "Senhas não coicidem.";
     }
   }
+
+  @observable
+  bool loading = false;
+  @action
+  setLoading(bool value) => loading = value;
+
+//valida formaulario
+  @computed
+  bool get isFormValid =>
+      nameValid &&
+      emailValid &&
+      phoneValid &&
+      passwordValid &&
+      passwordCopyValid;
+
+//verificação de estado
+  @computed
+  Function get signupButtonPressed => isFormValid ? _signupCall : null;
+
+  //cadastrar
+  Future<void> _signupCall() async {
+    setLoading(true);
+    await Future.delayed(Duration(seconds: 3));
+    setLoading(false);
+  }
 }

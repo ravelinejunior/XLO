@@ -36,6 +36,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
@@ -65,6 +66,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
@@ -92,6 +94,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
@@ -125,6 +128,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
@@ -152,6 +156,7 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   Observer(builder: (_) {
                     return TextFormField(
+                      enabled: !signupStore.loading,
                       decoration: InputDecoration(
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
@@ -176,21 +181,30 @@ class SignupScreen extends StatelessWidget {
                   }),
                   const SizedBox(height: 24),
                   //cadastrar
-                  Container(
-                    height: 60,
-                    margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-                    child: RaisedButton(
-                      splashColor: Colors.red,
-                      onPressed: () {},
-                      child: Text(
-                        'Cadastrar',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      color: Colors.amber,
-                      shape: StadiumBorder(),
-                      textColor: Colors.black,
-                    ),
-                  ),
+                  Observer(builder: (_) {
+                    signupStore.loading
+                        ? CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.orange))
+                        : Container(
+                            height: 60,
+                            margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+                            child: Observer(builder: (_) {
+                              return RaisedButton(
+                                splashColor: Colors.red,
+                                onPressed: signupStore.signupButtonPressed,
+                                disabledColor:
+                                    Colors.deepOrangeAccent.withAlpha(100),
+                                child: Text(
+                                  'Cadastrar',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                color: Colors.deepOrangeAccent,
+                                shape: StadiumBorder(),
+                                textColor: Colors.black,
+                              );
+                            }),
+                          );
+                  }),
 
                   Divider(
                     color: Colors.grey,
