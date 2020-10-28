@@ -182,28 +182,34 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   //cadastrar
                   Observer(builder: (_) {
-                    signupStore.loading
-                        ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation(Colors.orange))
-                        : Container(
-                            height: 60,
-                            margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-                            child: Observer(builder: (_) {
-                              return RaisedButton(
-                                splashColor: Colors.red,
-                                onPressed: signupStore.signupButtonPressed,
-                                disabledColor:
-                                    Colors.deepOrangeAccent.withAlpha(100),
-                                child: Text(
-                                  'Cadastrar',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                color: Colors.deepOrangeAccent,
-                                shape: StadiumBorder(),
-                                textColor: Colors.black,
-                              );
-                            }),
+                    if (signupStore.loading)
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.deepPurpleAccent),
+                          strokeWidth: 4,
+                        ),
+                      );
+                    else
+                      return Container(
+                        height: 60,
+                        margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+                        child: Observer(builder: (_) {
+                          return RaisedButton(
+                            splashColor: Colors.red,
+                            onPressed: signupStore.signupButtonPressed,
+                            disabledColor:
+                                Colors.deepOrangeAccent.withAlpha(100),
+                            child: Text(
+                              'Cadastrar',
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            color: Colors.orange,
+                            shape: StadiumBorder(),
+                            textColor: Colors.black,
                           );
+                        }),
+                      );
                   }),
 
                   Divider(

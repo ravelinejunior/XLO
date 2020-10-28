@@ -1,5 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
+import 'package:olx_project_parse/models/user.dart';
+import 'package:olx_project_parse/repositories/user/user_repository.dart';
 part 'signup_store.g.dart';
 
 class SignupStore = _SignupStoreBase with _$SignupStore;
@@ -122,7 +124,12 @@ abstract class _SignupStoreBase with Store {
   //cadastrar
   Future<void> _signupCall() async {
     setLoading(true);
-    await Future.delayed(Duration(seconds: 3));
+
+    final user =
+        User(name: name, email: email, phone: phone, password: password);
+
+    await UserRepository().signupUser(user);
+    await Future.delayed(Duration(seconds: 2));
     setLoading(false);
   }
 }
