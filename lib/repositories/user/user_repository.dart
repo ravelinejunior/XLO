@@ -1,15 +1,36 @@
 import 'package:olx_project_parse/models/user.dart';
+import 'package:olx_project_parse/repositories/response_errors/parse_errors.dart';
 import 'package:olx_project_parse/repositories/tables_keys/table_key.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 class UserRepository {
-  Future<void> signupUser(User user) async {
+  Future<User> signupUser(User user) async {
     final parseUser = ParseUser(user.email, user.password, user.email);
 
     parseUser.set<String>(keyUserName, user.name);
     parseUser.set<String>(keyUserPhone, user.phone);
-    parseUser.set(keyuserType, user.userType.index);
+    parseUser.set(keyUserType, user.userType.index);
 
-    await parseUser.signUp();
+    final response = await parseUser.signUp();
+
+    //verifica resposta signup
+    if (response.success) {
+      return mapParseToUser(parseUser);
+    } else {
+      return Future.error(ParseErrors.getDescription(response.error.code));
+    }
+  }
+
+  //transformar parseruser em User
+  User mapParseToUser(ParseUser parseUser) {
+    return User(
+      id: parseUser.objectId,
+      name: parseUser.get(keyUserName),
+      email: parseUser.get(keyUserEmail),
+      phone: parseUser.get(keyUserPhone),
+      password: parseUser.get(keyUserPassword),
+      userType: UserType.values[parseUser.get(keyUserType)],
+      createdAt: parseUser.get(keyUserCreatedAt),
+    );
   }
 }

@@ -108,7 +108,7 @@ abstract class _SignupStoreBase with Store {
   @action
   setLoading(bool value) => loading = value;
 
-//valida formaulario
+//valida formulario
   @computed
   bool get isFormValid =>
       nameValid &&
@@ -121,15 +121,27 @@ abstract class _SignupStoreBase with Store {
   @computed
   Function get signupButtonPressed => isFormValid ? _signupCall : null;
 
+//verifica erro de cadastro
+  @observable
+  String error;
+
+  @action
+  setError(String value) => error = value;
+
   //cadastrar
   Future<void> _signupCall() async {
     setLoading(true);
 
     final user =
         User(name: name, email: email, phone: phone, password: password);
+    try {
+      final resultUser = await UserRepository().signupUser(user);
+      print(resultUser);
+      await Future.delayed(Duration(seconds: 1));
+    } catch (e) {
+      error = e;
+    }
 
-    await UserRepository().signupUser(user);
-    await Future.delayed(Duration(seconds: 2));
     setLoading(false);
   }
 }

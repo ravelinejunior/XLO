@@ -2,11 +2,17 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
 import 'package:olx_project_parse/stores/signup_store.dart';
 
 class SignupScreen extends StatelessWidget {
   final SignupStore signupStore = SignupStore();
+  FocusNode focusNode1 = FocusNode();
+  FocusNode focusNode2 = FocusNode();
+  FocusNode focusNode3 = FocusNode();
+  FocusNode focusNode4 = FocusNode();
+  FocusNode focusNode5 = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +38,23 @@ class SignupScreen extends StatelessWidget {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(16),
                 children: [
+                  //mensagem de erro
+                  Observer(
+                    builder: (_) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: ErrorBox(
+                          message: signupStore.error,
+                        ),
+                      );
+                    },
+                  ),
+
                   //cadastro
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        focusNode: focusNode1,
                         enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
@@ -57,6 +76,7 @@ class SignupScreen extends StatelessWidget {
                         ),
                         keyboardType: TextInputType.text,
                         onChanged: signupStore.setName,
+                        onFieldSubmitted: (value) => focusNode2.requestFocus(),
                       );
                     },
                   ),
@@ -66,6 +86,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        focusNode: focusNode2,
                         enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
@@ -86,6 +107,7 @@ class SignupScreen extends StatelessWidget {
                         ),
                         keyboardType: TextInputType.emailAddress,
                         onChanged: signupStore.setEmail,
+                        onFieldSubmitted: (value) => focusNode3.requestFocus(),
                       );
                     },
                   ),
@@ -94,6 +116,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        focusNode: focusNode3,
                         enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
@@ -118,6 +141,7 @@ class SignupScreen extends StatelessWidget {
                           TelefoneInputFormatter(),
                         ],
                         onChanged: signupStore.setPhone,
+                        onFieldSubmitted: (value) => focusNode4.requestFocus(),
                       );
                     },
                   ),
@@ -128,6 +152,7 @@ class SignupScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
+                        focusNode: focusNode4,
                         enabled: !signupStore.loading,
                         decoration: InputDecoration(
                           alignLabelWithHint: true,
@@ -150,12 +175,14 @@ class SignupScreen extends StatelessWidget {
                         onChanged: signupStore.setPassword,
                         obscureText: true,
                         keyboardType: TextInputType.text,
+                        onEditingComplete: () => focusNode5.requestFocus(),
                       );
                     },
                   ),
                   const SizedBox(height: 24),
                   Observer(builder: (_) {
                     return TextFormField(
+                      focusNode: focusNode5,
                       enabled: !signupStore.loading,
                       decoration: InputDecoration(
                         alignLabelWithHint: true,
@@ -177,6 +204,7 @@ class SignupScreen extends StatelessWidget {
                       onChanged: signupStore.setPasswordCopy,
                       textInputAction: TextInputAction.done,
                       obscureText: true,
+                      onFieldSubmitted: (value) => focusNode5.unfocus(),
                     );
                   }),
                   const SizedBox(height: 24),
