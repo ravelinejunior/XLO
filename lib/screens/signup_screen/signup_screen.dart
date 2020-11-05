@@ -8,11 +8,11 @@ import 'package:olx_project_parse/stores/signup_store.dart';
 
 class SignupScreen extends StatelessWidget {
   final SignupStore signupStore = SignupStore();
-  FocusNode focusNode1 = FocusNode();
-  FocusNode focusNode2 = FocusNode();
-  FocusNode focusNode3 = FocusNode();
-  FocusNode focusNode4 = FocusNode();
-  FocusNode focusNode5 = FocusNode();
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
+  final FocusNode focusNode4 = FocusNode();
+  final FocusNode focusNode5 = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,18 +38,6 @@ class SignupScreen extends StatelessWidget {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(16),
                 children: [
-                  //mensagem de erro
-                  Observer(
-                    builder: (_) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: ErrorBox(
-                          message: signupStore.error,
-                        ),
-                      );
-                    },
-                  ),
-
                   //cadastro
                   Observer(
                     builder: (_) {
@@ -239,6 +227,21 @@ class SignupScreen extends StatelessWidget {
                         }),
                       );
                   }),
+
+                  //mensagem de erro
+                  Observer(
+                    builder: (_) {
+                      if (signupStore.showErrorBox)
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: ErrorBox(
+                            message: signupStore.error,
+                          ),
+                        );
+                      else
+                        return Container();
+                    },
+                  ),
 
                   Divider(
                     color: Colors.grey,

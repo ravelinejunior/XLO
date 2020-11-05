@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/screens/signup_screen/signup_screen.dart';
+import 'package:olx_project_parse/stores/login_store.dart';
 
 class LoginScreen extends StatelessWidget {
+  final LoginStore loginStore = LoginStore();
+  final FocusNode focusNode1 = FocusNode();
+  final FocusNode focusNode2 = FocusNode();
+  final FocusNode focusNode3 = FocusNode();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,46 +70,87 @@ class LoginScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 16),
+
+                    Observer(
+                      builder: (_) {
+                        if (loginStore.showErrorBox)
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: ErrorBox(
+                              message: loginStore.error,
+                            ),
+                          );
+                        else
+                          return Container();
+                      },
+                    ),
+
+                    const SizedBox(height: 16),
                     //login
-                    TextFormField(
-                      smartDashesType: SmartDashesType.enabled,
-                      decoration: InputDecoration(
-                        alignLabelWithHint: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          gapPadding: 16,
-                        ),
-                        contentPadding: const EdgeInsets.all(16),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Email",
-                        hintStyle: TextStyle(
-                          color: Colors.black.withAlpha(100),
-                        ),
-                        prefixIcon: Icon(Icons.alternate_email),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
+                    Observer(
+                      builder: (_) {
+                        return TextFormField(
+                          focusNode: focusNode1,
+                          enabled: !loginStore.loading,
+                          smartDashesType: SmartDashesType.enabled,
+                          decoration: InputDecoration(
+                            alignLabelWithHint: true,
+                            errorText: loginStore.emailError,
+                            errorStyle: TextStyle(
+                              color: Colors.redAccent,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              gapPadding: 16,
+                            ),
+                            contentPadding: const EdgeInsets.all(16),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: "Email",
+                            hintStyle: TextStyle(
+                              color: Colors.black.withAlpha(100),
+                            ),
+                            prefixIcon: Icon(Icons.alternate_email),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: loginStore.setEmail,
+                          onEditingComplete: focusNode2.requestFocus,
+                          textInputAction: TextInputAction.next,
+                        );
+                      },
                     ),
                     const SizedBox(height: 24),
                     //senha
 
-                    TextFormField(
-                      smartDashesType: SmartDashesType.enabled,
-                      decoration: InputDecoration(
-                        alignLabelWithHint: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          gapPadding: 16,
-                        ),
-                        contentPadding: const EdgeInsets.all(16),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintText: "Senha",
-                        hintStyle: TextStyle(
-                          color: Colors.black.withAlpha(100),
-                        ),
-                        prefixIcon: Icon(Icons.offline_bolt),
-                      ),
-                      obscureText: true,
-                      keyboardType: TextInputType.text,
+                    Observer(
+                      builder: (_) {
+                        return TextFormField(
+                          focusNode: focusNode2,
+                          enabled: !loginStore.loading,
+                          smartDashesType: SmartDashesType.enabled,
+                          decoration: InputDecoration(
+                            errorText: loginStore.passwordError,
+                            errorStyle: TextStyle(
+                              color: Colors.redAccent,
+                            ),
+                            alignLabelWithHint: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              gapPadding: 16,
+                            ),
+                            contentPadding: const EdgeInsets.all(16),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            hintText: "Senha",
+                            hintStyle: TextStyle(
+                              color: Colors.black.withAlpha(100),
+                            ),
+                            prefixIcon: Icon(Icons.offline_bolt),
+                          ),
+                          obscureText: true,
+                          keyboardType: TextInputType.text,
+                          onChanged: loginStore.setPassword,
+                          onFieldSubmitted: (value) => focusNode3.requestFocus,
+                        );
+                      },
                     ),
                     const SizedBox(height: 24),
                     SizedBox(
@@ -114,28 +162,54 @@ class LoginScreen extends StatelessWidget {
                           child: Text(
                             'Esqueci minha senha',
                             style: TextStyle(
-                                color: Colors.purple,
-                                decoration: TextDecoration.underline),
+                              color: Colors.purple,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ),
                     ),
 
                     //logar
-                    Container(
-                      height: 54,
-                      margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-                      child: RaisedButton(
-                        splashColor: Colors.yellowAccent[700],
-                        onPressed: () {},
-                        child: Text(
-                          'Entrar',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        color: Colors.amber,
-                        shape: StadiumBorder(),
-                        textColor: Colors.black,
-                      ),
+                    Observer(
+                      builder: (_) {
+                        if (loginStore.loading)
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 24,
+                              horizontal: 16,
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.purpleAccent,
+                                ),
+                                strokeWidth: 5,
+                              ),
+                            ),
+                          );
+                        else
+                          return Container(
+                            height: 54,
+                            margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
+                            child: RaisedButton(
+                              focusNode: focusNode3,
+                              disabledColor: Colors.orange.withAlpha(100),
+                              disabledElevation: 10,
+                              elevation: 10,
+                              disabledTextColor: Colors.black.withAlpha(100),
+                              splashColor: Colors.yellowAccent[700],
+                              onPressed: loginStore.loginButtonPressed,
+                              child: Text(
+                                'Entrar',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              color: Colors.amber,
+                              shape: StadiumBorder(),
+                              textColor: Colors.black87,
+                            ),
+                          );
+                      },
                     ),
                     Divider(
                       color: Colors.grey,
