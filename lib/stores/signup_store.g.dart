@@ -164,6 +164,21 @@ mixin _$SignupStore on _SignupStoreBase, Store {
     });
   }
 
+  final _$showErrorBoxAtom = Atom(name: '_SignupStoreBase.showErrorBox');
+
+  @override
+  bool get showErrorBox {
+    _$showErrorBoxAtom.reportRead();
+    return super.showErrorBox;
+  }
+
+  @override
+  set showErrorBox(bool value) {
+    _$showErrorBoxAtom.reportWrite(value, super.showErrorBox, () {
+      super.showErrorBox = value;
+    });
+  }
+
   final _$_SignupStoreBaseActionController =
       ActionController(name: '_SignupStoreBase');
 
@@ -245,6 +260,17 @@ mixin _$SignupStore on _SignupStoreBase, Store {
   }
 
   @override
+  dynamic setShowError(bool value) {
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setShowError');
+    try {
+      return super.setShowError(value);
+    } finally {
+      _$_SignupStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
@@ -254,6 +280,7 @@ password: ${password},
 passwordCopy: ${passwordCopy},
 loading: ${loading},
 error: ${error},
+showErrorBox: ${showErrorBox},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},

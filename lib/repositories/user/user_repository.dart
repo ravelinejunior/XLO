@@ -4,6 +4,7 @@ import 'package:olx_project_parse/repositories/tables_keys/table_key.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 class UserRepository {
+  //cadastro de usuario
   Future<User> signupUser(User user) async {
     final parseUser = ParseUser(user.email, user.password, user.email);
 
@@ -19,6 +20,35 @@ class UserRepository {
     } else {
       return Future.error(ParseErrors.getDescription(response.error.code));
     }
+  }
+
+  //login com email
+  Future<User> loginWithEmail(String email, String password) async {
+    final parseUser = ParseUser(email, password, null);
+
+    final response = await parseUser.login();
+
+    if (response.success) {
+      //tras info sobre usuario
+      return mapParseToUser(response.result);
+    } else {
+      return Future.error(ParseErrors.getDescription(response.error.code));
+    }
+  }
+
+  //função de login inicial
+  Future<User> currentUser() async {
+    final parseUser = await ParseUser.currentUser();
+    if (parseUser != null) {
+      final response =
+          await ParseUser.getCurrentUserFromServer(parseUser.sessionToken);
+      if (response.success) {
+        return mapParseToUser(response.result);
+      } else {
+        await parseUser.logout();
+      }
+    }
+    return null;
   }
 
   //transformar parseruser em User

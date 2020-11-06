@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 
 class CustomDrawerHeader extends StatelessWidget {
+  //acessando usuario de instancia logado
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
   @override
   Widget build(BuildContext context) {
     return DrawerHeader(
@@ -28,19 +33,25 @@ class CustomDrawerHeader extends StatelessWidget {
               onTap: () => {
                 //fechar drawer
                 Navigator.of(context).pop(),
-
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => LoginScreen(),
-                  ),
-                )
+                if (userManagerStore.isLoggedIn)
+                  {
+                    GetIt.I<PageStore>().setPage(4),
+                  }
+                else
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => LoginScreen(),
+                    ),
+                  )
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Acesse sua conta imadiatamente!",
+                    userManagerStore.isLoggedIn
+                        ? userManagerStore.user.name
+                        : "Acesse sua conta !",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -50,7 +61,9 @@ class CustomDrawerHeader extends StatelessWidget {
                   ),
                   Divider(color: Colors.white),
                   Text(
-                    "Clique aqui !!! ",
+                    userManagerStore.isLoggedIn
+                        ? userManagerStore.user.email
+                        : "Clique aqui !!! ",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -58,6 +71,23 @@ class CustomDrawerHeader extends StatelessWidget {
                     ),
                     overflow: TextOverflow.fade,
                   ),
+                  if (userManagerStore.isLoggedIn) const SizedBox(height: 16),
+                  if (userManagerStore.isLoggedIn)
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: RaisedButton(
+                        elevation: 10,
+                        splashColor: Colors.pink[300],
+                        onPressed: () {},
+                        child: Text(
+                          'Logout',
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        color: Colors.pinkAccent,
+                        shape: StadiumBorder(),
+                        textColor: Colors.white,
+                      ),
+                    ),
                 ],
               ),
             ),

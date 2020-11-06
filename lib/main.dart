@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/screens/base_screen/base_screen.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -69,19 +70,21 @@ EDITAR CLASSE JA CRIADA POR ID
   //codigo
 }
 
+//acessar managers de qualquer lugar do app
 void setUpLocatores() {
   GetIt.I.registerSingleton(PageStore());
+  GetIt.I.registerSingleton(UserManagerStore());
+  //print(GetIt.I<UserManagerStore>().user.name);
 }
 
 //inicializar parse
 Future<void> initializeParse() async {
-  await Parse().initialize(
-    "Y9ItrTc55ob6YeIvgTXbwS44qatzWV8guMLxh9Em",
-    "https://parseapi.back4app.com/",
-    clientKey: "xTfJnG558e9xebPSqLgaGJf670LQtYLKzp2brrSL",
-    autoSendSessionId: true,
-    debug: true,
-  );
+  await Parse().initialize("Y9ItrTc55ob6YeIvgTXbwS44qatzWV8guMLxh9Em",
+      "https://parseapi.back4app.com/",
+      clientKey: "xTfJnG558e9xebPSqLgaGJf670LQtYLKzp2brrSL",
+      autoSendSessionId: true,
+      debug: true,
+      coreStore: CoreStoreMemoryImp());
 }
 
 class MyApp extends StatelessWidget {
