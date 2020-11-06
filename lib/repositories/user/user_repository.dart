@@ -1,7 +1,7 @@
 import 'package:olx_project_parse/models/user.dart';
 import 'package:olx_project_parse/repositories/response_errors/parse_errors.dart';
 import 'package:olx_project_parse/repositories/tables_keys/table_key.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 class UserRepository {
   //cadastro de usuario

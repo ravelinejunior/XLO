@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/screens/base_screen/base_screen.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,12 +79,18 @@ void setUpLocatores() {
 
 //inicializar parse
 Future<void> initializeParse() async {
-  await Parse().initialize("Y9ItrTc55ob6YeIvgTXbwS44qatzWV8guMLxh9Em",
+  try {
+    await Parse().initialize(
+      "Y9ItrTc55ob6YeIvgTXbwS44qatzWV8guMLxh9Em",
       "https://parseapi.back4app.com/",
       clientKey: "xTfJnG558e9xebPSqLgaGJf670LQtYLKzp2brrSL",
       autoSendSessionId: true,
       debug: true,
-      coreStore: CoreStoreMemoryImp());
+      coreStore: await CoreStoreSembastImp.getInstance(),
+    );
+  } catch (e) {
+    print(e);
+  }
 }
 
 class MyApp extends StatelessWidget {
