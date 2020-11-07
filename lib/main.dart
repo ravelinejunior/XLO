@@ -88,8 +88,17 @@ Future<void> initializeParse() async {
       debug: true,
       coreStore: await CoreStoreSembastImp.getInstance(),
     );
+    print("Logado");
   } catch (e) {
     print(e);
+    await Parse().initialize(
+      "Y9ItrTc55ob6YeIvgTXbwS44qatzWV8guMLxh9Em",
+      "https://parseapi.back4app.com/",
+      clientKey: "xTfJnG558e9xebPSqLgaGJf670LQtYLKzp2brrSL",
+      autoSendSessionId: true,
+      debug: true,
+    );
+    print("Sem usuario");
   }
 }
 
