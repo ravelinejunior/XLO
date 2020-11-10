@@ -2,14 +2,15 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
+import 'package:olx_project_parse/stores/create_store.dart';
 
 import 'components/images_field.dart';
 
 class CreateScreen extends StatelessWidget {
+  final CreateStore createStore = CreateStore();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Criar Anúncio'),
         centerTitle: true,
@@ -29,7 +30,7 @@ class CreateScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               //criar widget de imagem
-              ImagesField(),
+              ImagesField(createStore),
               const SizedBox(height: 24),
 
               //titulo
@@ -85,6 +86,10 @@ class CreateScreen extends StatelessWidget {
                   prefixIcon: Icon(Icons.location_on),
                   isDense: true,
                 ),
+                inputFormatters: [
+                  CepInputFormatter(),
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 24),
