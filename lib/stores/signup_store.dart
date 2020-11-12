@@ -3,7 +3,8 @@ import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/models/user.dart';
-import 'package:olx_project_parse/repositories/user/user_repository.dart';
+import 'package:olx_project_parse/repositories/repo_user/user_repository.dart';
+
 part 'signup_store.g.dart';
 
 class SignupStore = _SignupStoreBase with _$SignupStore;

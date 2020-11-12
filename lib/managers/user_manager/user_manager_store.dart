@@ -1,7 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/models/user.dart';
-import 'package:olx_project_parse/repositories/user/user_repository.dart';
+import 'package:olx_project_parse/repositories/repo_user/user_repository.dart';
+
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 part 'user_manager_store.g.dart';
 
