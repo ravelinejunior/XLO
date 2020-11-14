@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:olx_project_parse/api/ibge_api/ibge_api.dart';
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
-import 'package:olx_project_parse/repositories/repo_category/category_repository.dart';
 import 'package:olx_project_parse/screens/base_screen/base_screen.dart';
-import 'package:olx_project_parse/screens/category_screen/category_screen.dart';
 import 'package:olx_project_parse/stores/category_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -13,6 +12,7 @@ void main() async {
   await initializeParse();
   setUpLocatores();
   runApp(MyApp());
+  IBGEApi().getUFListFromApi().then((value) => print(value));
 }
 
 //acessar managers de qualquer lugar do app
