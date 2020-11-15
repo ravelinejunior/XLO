@@ -5,6 +5,7 @@ import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/screens/category_screen/components/category_field.dart';
 import 'package:olx_project_parse/stores/create_store.dart';
 
+import 'components/cep_field.dart';
 import 'components/images_field.dart';
 
 class CreateScreen extends StatelessWidget {
@@ -73,28 +74,9 @@ class CreateScreen extends StatelessWidget {
               //dropdown category
               CategoryField(createStore),
               const SizedBox(height: 24),
-              //titulo
-              TextFormField(
-                decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  contentPadding: const EdgeInsets.all(16),
-                  labelText: "CEP *",
-                  labelStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                  prefixIcon: Icon(Icons.location_on),
-                  isDense: true,
-                ),
-                inputFormatters: [
-                  CepInputFormatter(),
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 24),
+              //CEP
+              CepField(),
+
               //preço
               TextFormField(
                 decoration: InputDecoration(
@@ -120,7 +102,7 @@ class CreateScreen extends StatelessWidget {
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
-                  RealInputFormatter(),
+                  RealInputFormatter(centavos: true),
                 ],
               ),
               const SizedBox(height: 500),
