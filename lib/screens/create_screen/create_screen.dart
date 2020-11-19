@@ -1,8 +1,10 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/screens/category_screen/components/category_field.dart';
+import 'package:olx_project_parse/screens/create_screen/components/hide_phone_field.dart';
 import 'package:olx_project_parse/stores/create_store.dart';
 
 import 'components/cep_field.dart';
@@ -18,95 +20,156 @@ class CreateScreen extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: CustomDrawer(),
-      body: Card(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        elevation: 10,
-        margin: const EdgeInsets.all(16),
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(16),
-            children: [
-              //criar widget de imagem
-              ImagesField(createStore),
-              const SizedBox(height: 24),
+      body: Container(
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            elevation: 10,
+            margin: const EdgeInsets.all(16),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //criar widget de imagem
+                  ImagesField(createStore),
+                  const SizedBox(height: 24),
 
-              //titulo
-              TextFormField(
-                decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  contentPadding: const EdgeInsets.all(16),
-                  labelText: "Título *",
-                  labelStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                  prefixIcon: Icon(Icons.title),
-                  isDense: true,
-                ),
-                keyboardType: TextInputType.text,
-              ),
-              const SizedBox(height: 24),
-              //titulo
-              TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  contentPadding: const EdgeInsets.all(16),
-                  labelText: "Descrição *",
-                  labelStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                  prefixIcon: Icon(Icons.description),
-                ),
-                keyboardType: TextInputType.multiline,
-                textInputAction: TextInputAction.newline,
-                maxLines: null,
-              ),
-              const SizedBox(height: 24),
-              //dropdown category
-              CategoryField(createStore),
-              const SizedBox(height: 24),
-              //CEP
-              CepField(),
+                  //titulo
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      enabled: !createStore.loading,
+                      decoration: InputDecoration(
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        contentPadding: const EdgeInsets.all(16),
+                        labelText: "Título *",
+                        labelStyle: TextStyle(
+                          color: Colors.black.withAlpha(100),
+                        ),
+                        errorText: createStore.titleError,
+                        prefixIcon: Icon(Icons.title),
+                        isDense: true,
+                      ),
+                      onChanged: createStore.setTitle,
+                      keyboardType: TextInputType.text,
+                    );
+                  }),
+                  const SizedBox(height: 24),
+                  //description
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      enabled: !createStore.loading,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        contentPadding: const EdgeInsets.all(16),
+                        labelText: "Descrição *",
+                        labelStyle: TextStyle(
+                          color: Colors.black.withAlpha(100),
+                        ),
+                        errorText: createStore.descriptionError,
+                        prefixIcon: Icon(Icons.description),
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
+                      onChanged: createStore.setDescription,
+                      maxLines: null,
+                    );
+                  }),
+                  const SizedBox(height: 24),
+                  //dropdown category
+                  CategoryField(createStore),
+                  const SizedBox(height: 24),
+                  //CEP
+                  CepField(createStore),
 
-              //preço
-              TextFormField(
-                decoration: InputDecoration(
-                  alignLabelWithHint: true,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
+                  //preço
+                  Observer(builder: (_) {
+                    return TextFormField(
+                      enabled: !createStore.loading,
+                      onChanged: createStore.setPrice,
+                      decoration: InputDecoration(
+                        alignLabelWithHint: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        contentPadding: const EdgeInsets.all(16),
+                        labelText: "Preço *",
+                        labelStyle: TextStyle(
+                          color: Colors.black.withAlpha(100),
+                        ),
+                        hintStyle: TextStyle(
+                          color: Colors.black.withAlpha(100),
+                        ),
+                        errorText: createStore.priceError,
+                        prefixIcon: Icon(Icons.attach_money),
+                        isDense: true,
+                        prefixText: "R\$ ",
+                        prefixStyle: TextStyle(
+                          color: Colors.black.withAlpha(100),
+                        ),
+                      ),
+                      keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        RealInputFormatter(centavos: true),
+                      ],
+                    );
+                  }),
+                  Divider(),
+                  HidePhoneField(createStore: createStore),
+
+                  Observer(
+                    builder: (_) {
+                      if (!createStore.loading)
+                        return SizedBox(
+                          height: 56,
+                          child: GestureDetector(
+                            onTap: createStore.setInvalidSendPressed,
+                            child: RaisedButton.icon(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              onPressed: createStore.sendPressedValid,
+                              icon: Icon(Icons.done),
+                              label: Text(
+                                'Enviar',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              color: Colors.orange,
+                              textColor: Colors.white,
+                              splashColor: Colors.amber,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              disabledColor: Colors.orangeAccent.withAlpha(100),
+                              disabledElevation: 10,
+                              disabledTextColor: Colors.black.withAlpha(100),
+                            ),
+                          ),
+                        );
+                      else
+                        return Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.pink),
+                            strokeWidth: 4,
+                          ),
+                        );
+                    },
                   ),
-                  contentPadding: const EdgeInsets.all(16),
-                  labelText: "Preço *",
-                  labelStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                  prefixIcon: Icon(Icons.attach_money),
-                  isDense: true,
-                  prefixText: "R\$ ",
-                  prefixStyle: TextStyle(
-                    color: Colors.black.withAlpha(100),
-                  ),
-                ),
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                  RealInputFormatter(centavos: true),
+
+                  const SizedBox(height: 250),
                 ],
               ),
-              const SizedBox(height: 500),
-            ],
+            ),
           ),
         ),
       ),
