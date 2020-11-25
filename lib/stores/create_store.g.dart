@@ -168,6 +168,28 @@ mixin _$CreateStore on _CreateStore, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_CreateStore.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
+  final _$_sendAsyncAction = AsyncAction('_CreateStore._send');
+
+  @override
+  Future<void> _send() {
+    return _$_sendAsyncAction.run(() => super._send());
+  }
+
   final _$_CreateStoreActionController = ActionController(name: '_CreateStore');
 
   @override
@@ -257,6 +279,7 @@ category: ${category},
 hidePhone: ${hidePhone},
 priceText: ${priceText},
 showErrors: ${showErrors},
+error: ${error},
 imagesValid: ${imagesValid},
 titleValid: ${titleValid},
 descriptionValid: ${descriptionValid},

@@ -1,6 +1,10 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
+import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/models/address.dart';
 import 'package:olx_project_parse/models/category.dart';
+import 'package:olx_project_parse/repositories/ad_repository/ad_repository.dart';
 import 'package:olx_project_parse/stores/cep_store.dart';
 part 'create_store.g.dart';
 
@@ -128,10 +132,24 @@ abstract class _CreateStore with Store {
   @computed
   Function get sendPressedValid => formValid ? _send : null;
 
+  @action
   Future<void> _send() async {
     setLoading(true);
-    await Future.delayed(Duration(seconds: 3))
-        .then((value) => print("Clicado $loading"));
+
+    final ad = Ad();
+    ad.address = address;
+    ad.category = category;
+    ad.description = description;
+    ad.hidePhone = hidePhone;
+    ad.images = images;
+    ad.price = price;
+    ad.user = GetIt.I<UserManagerStore>().user;
+
+    try {
+      final response = await AdRepository().save(ad);
+    } catch (e) {
+      error = e;
+    }
 
     setLoading(false);
   }
@@ -141,4 +159,7 @@ abstract class _CreateStore with Store {
 
   @action
   bool setInvalidSendPressed() => showErrors = true;
+
+  @observable
+  String error = "";
 }
