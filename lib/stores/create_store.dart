@@ -146,9 +146,10 @@ abstract class _CreateStore with Store {
     ad.user = GetIt.I<UserManagerStore>().user;
 
     try {
-      final response = await AdRepository().save(ad);
+      savedAd = await AdRepository().save(ad);
     } catch (e) {
       error = e;
+      showErrorBoxDisplay();
     }
 
     setLoading(false);
@@ -162,4 +163,18 @@ abstract class _CreateStore with Store {
 
   @observable
   String error = "";
+
+  @observable
+  Ad savedAd;
+
+  @observable
+  bool showErrorBox = false;
+
+  @action
+  setShowError(bool value) => showErrorBox = value;
+
+  void showErrorBoxDisplay() async {
+    setShowError(true);
+    await Future.delayed(Duration(seconds: 4)).then((_) => setShowError(false));
+  }
 }

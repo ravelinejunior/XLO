@@ -8,7 +8,7 @@ import 'package:path/path.dart' as path;
 
 //objetos do parse so comunicam com objetos dos parse
 class AdRepository {
-  Future<void> save(Ad ad) async {
+  Future<Ad> save(Ad ad) async {
     try {
 //salvar imagens em formato file e recuperar em formato parseFile
       final parseImages = await saveImages(ad.images);
@@ -38,7 +38,7 @@ class AdRepository {
       final response = await adObject.save();
 
       if (response.success) {
-        return response.result;
+        return Ad.fromParse(response.result);
       } else
         return Future.error(
           ParseErrors.getDescription(response.error.code),

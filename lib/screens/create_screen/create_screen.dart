@@ -2,17 +2,38 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/screens/category_screen/components/category_field.dart';
 import 'package:olx_project_parse/screens/create_screen/components/hide_phone_field.dart';
 import 'package:olx_project_parse/stores/create_store.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 
 import 'components/cep_field.dart';
 import 'components/images_field.dart';
 
-class CreateScreen extends StatelessWidget {
+class CreateScreen extends StatefulWidget {
+  @override
+  _CreateScreenState createState() => _CreateScreenState();
+}
+
+class _CreateScreenState extends State<CreateScreen> {
   final CreateStore createStore = CreateStore();
+
+  @override
+  void initState() {
+    super.initState();
+
+//só é trigado uma vez
+    when((_) => createStore.savedAd != null, () {
+      print("Cheguei aqui");
+      GetIt.I<PageStore>().setPage(0);
+      Navigator.of(context).pop();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +152,7 @@ class CreateScreen extends StatelessWidget {
                         }),
                         Divider(),
                         HidePhoneField(createStore: createStore),
-                        if (createStore.error != '')
+                        if (createStore.showErrorBox)
                           Observer(
                             builder: (_) {
                               return ErrorBox(
@@ -139,7 +160,8 @@ class CreateScreen extends StatelessWidget {
                               );
                             },
                           ),
-                        if (createStore.error != '') const SizedBox(height: 16),
+                        if (createStore.showErrorBox)
+                          const SizedBox(height: 16),
 
                         Observer(
                           builder: (_) {

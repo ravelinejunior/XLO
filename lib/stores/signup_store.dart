@@ -156,7 +156,7 @@ abstract class _SignupStoreBase with Store {
     setLoading(false);
   }
 
-  void showErrorBoxDisplay() async {
+  Future<void> showErrorBoxDisplay() async {
     setShowError(true);
     await Future.delayed(Duration(seconds: 4)).then((_) => setShowError(false));
   }

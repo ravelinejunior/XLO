@@ -183,6 +183,36 @@ mixin _$CreateStore on _CreateStore, Store {
     });
   }
 
+  final _$savedAdAtom = Atom(name: '_CreateStore.savedAd');
+
+  @override
+  Ad get savedAd {
+    _$savedAdAtom.reportRead();
+    return super.savedAd;
+  }
+
+  @override
+  set savedAd(Ad value) {
+    _$savedAdAtom.reportWrite(value, super.savedAd, () {
+      super.savedAd = value;
+    });
+  }
+
+  final _$showErrorBoxAtom = Atom(name: '_CreateStore.showErrorBox');
+
+  @override
+  bool get showErrorBox {
+    _$showErrorBoxAtom.reportRead();
+    return super.showErrorBox;
+  }
+
+  @override
+  set showErrorBox(bool value) {
+    _$showErrorBoxAtom.reportWrite(value, super.showErrorBox, () {
+      super.showErrorBox = value;
+    });
+  }
+
   final _$_sendAsyncAction = AsyncAction('_CreateStore._send');
 
   @override
@@ -270,6 +300,17 @@ mixin _$CreateStore on _CreateStore, Store {
   }
 
   @override
+  dynamic setShowError(bool value) {
+    final _$actionInfo = _$_CreateStoreActionController.startAction(
+        name: '_CreateStore.setShowError');
+    try {
+      return super.setShowError(value);
+    } finally {
+      _$_CreateStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 loading: ${loading},
@@ -280,6 +321,8 @@ hidePhone: ${hidePhone},
 priceText: ${priceText},
 showErrors: ${showErrors},
 error: ${error},
+savedAd: ${savedAd},
+showErrorBox: ${showErrorBox},
 imagesValid: ${imagesValid},
 titleValid: ${titleValid},
 descriptionValid: ${descriptionValid},
