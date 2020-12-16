@@ -146,7 +146,8 @@ abstract class _CreateStore with Store {
     ad.user = GetIt.I<UserManagerStore>().user;
 
     try {
-      savedAd = await AdRepository().save(ad);
+      await AdRepository().save(ad);
+      savedAd = true;
     } catch (e) {
       error = e;
       showErrorBoxDisplay();
@@ -165,7 +166,7 @@ abstract class _CreateStore with Store {
   String error = "";
 
   @observable
-  Ad savedAd;
+  bool savedAd = false;
 
   @observable
   bool showErrorBox = false;
