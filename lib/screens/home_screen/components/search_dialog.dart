@@ -15,7 +15,9 @@ class SearchDialog extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  prefixIcon: IconButton(icon: null, onPressed: null)),
+                  prefixIcon: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: Navigator.of(context).pop)),
             ),
           ),
           top: 2,
