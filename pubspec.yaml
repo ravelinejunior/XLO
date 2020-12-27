@@ -29,6 +29,7 @@ dependencies:
   dio: ^3.0.10
   shared_preferences: ^0.5.12+4
   path: ^1.7.0
+  font_awesome_flutter: ^8.11.0
 
 dev_dependencies:
   flutter_test:

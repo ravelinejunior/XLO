@@ -27,10 +27,10 @@ class _CreateScreenState extends State<CreateScreen> {
     super.initState();
 
 //só é trigado uma vez
-    when((_) => createStore.savedAd != null, () {
+    when((_) => createStore.savedAd != null && createStore.savedAd, () {
       print("Cheguei aqui");
       GetIt.I<PageStore>().setPage(0);
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     });
   }
 

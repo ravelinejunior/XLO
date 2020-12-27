@@ -4,8 +4,10 @@ import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'components/search_dialog.dart';
 
 class HomeScreen extends StatelessWidget {
-  openSearch(BuildContext context) {
-    showDialog(context: context, builder: (_) => SearchDialog());
+  openSearch(BuildContext context) async {
+    //getting text from search dialog
+    final search =
+        await showDialog(context: context, builder: (_) => SearchDialog());
   }
 
   @override

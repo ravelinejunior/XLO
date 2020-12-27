@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:olx_project_parse/api/cep_api/cep_api.dart';
-import 'package:olx_project_parse/api/ibge_api/ibge_api.dart';
+
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/screens/base_screen/base_screen.dart';
 import 'package:olx_project_parse/stores/category_store.dart';

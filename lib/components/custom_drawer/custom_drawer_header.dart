@@ -73,19 +73,21 @@ class CustomDrawerHeader extends StatelessWidget {
                   ),
                   if (userManagerStore.isLoggedIn) const SizedBox(height: 16),
                   if (userManagerStore.isLoggedIn)
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: RaisedButton(
-                        elevation: 10,
-                        splashColor: Colors.pink[300],
-                        onPressed: () {},
-                        child: Text(
-                          'Logout',
-                          style: TextStyle(fontSize: 12),
+                    Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: RaisedButton(
+                          elevation: 10,
+                          splashColor: Colors.pink[300],
+                          onPressed: () {},
+                          child: Text(
+                            'Logout',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          color: Colors.pinkAccent,
+                          shape: StadiumBorder(),
+                          textColor: Colors.white,
                         ),
-                        color: Colors.pinkAccent,
-                        shape: StadiumBorder(),
-                        textColor: Colors.white,
                       ),
                     ),
                 ],

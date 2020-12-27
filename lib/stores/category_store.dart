@@ -39,9 +39,5 @@ abstract class _CategoryStore with Store {
 
 //recupera todas as categorias e cria mais uma full para clonar a lista
   @computed
-  List<Category> get allCategoryList => List.from(categoryList)
-    ..insert(
-      0,
-      Category(id: "*", description: "Todas"),
-    );
+  List<Category> get allCategoryList => List.from(categoryList);
 }
