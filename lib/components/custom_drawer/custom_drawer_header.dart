@@ -48,34 +48,46 @@ class CustomDrawerHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    userManagerStore.isLoggedIn
-                        ? userManagerStore.user.name
-                        : "Acesse sua conta !",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        userManagerStore.isLoggedIn
+                            ? userManagerStore.user.name
+                            : "Acesse sua conta !",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
-                    overflow: TextOverflow.fade,
                   ),
                   Divider(color: Colors.white),
-                  Text(
-                    userManagerStore.isLoggedIn
-                        ? userManagerStore.user.email
-                        : "Clique aqui !!! ",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        userManagerStore.isLoggedIn
+                            ? userManagerStore.user.email
+                            : "Clique aqui !!! ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
-                    overflow: TextOverflow.fade,
                   ),
                   if (userManagerStore.isLoggedIn) const SizedBox(height: 16),
                   if (userManagerStore.isLoggedIn)
                     Expanded(
                       child: Container(
+                        margin: const EdgeInsets.only(bottom: 4),
                         width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 10,
                         child: RaisedButton(
                           elevation: 10,
                           splashColor: Colors.pink[300],

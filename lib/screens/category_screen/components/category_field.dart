@@ -46,7 +46,7 @@ class CategoryField extends StatelessWidget {
                       context: context,
                       builder: (_) => CategoryScreen(
                         categorySelected: createStore.category,
-                        showAll: true,
+                        showAll: false,
                       ),
                     );
 

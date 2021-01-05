@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageSourceModal extends StatelessWidget {
+class ImageSourceModal extends StatefulWidget {
   final Function imageSelecteCallBack;
   ImageSourceModal(this.imageSelecteCallBack);
+
+  @override
+  _ImageSourceModalState createState() => _ImageSourceModalState();
+}
+
+class _ImageSourceModalState extends State<ImageSourceModal> {
   File _image;
+
   final picker = ImagePicker();
 
   @override
@@ -73,7 +80,6 @@ class ImageSourceModal extends StatelessWidget {
       );
   }
 
-  //funções de recuperação de imagens
   Future<void> getFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
     //tratar erro caso usuario nao selecione imagem
@@ -92,7 +98,6 @@ class ImageSourceModal extends StatelessWidget {
     imageSelected(_image);
   }
 
-  //recupera imagem apos editada
   Future<void> imageSelected(File image) async {
     File croppedFile = await ImageCropper.cropImage(
       sourcePath: image.path,
@@ -127,6 +132,6 @@ class ImageSourceModal extends StatelessWidget {
     );
 
     //envia imagem para image field
-    if (croppedFile != null) imageSelecteCallBack(croppedFile);
+    if (croppedFile != null) widget.imageSelecteCallBack(croppedFile);
   }
 }
