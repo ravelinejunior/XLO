@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:olx_project_parse/screens/filter_screen/components/orderByField.dart';
+import 'package:olx_project_parse/screens/filter_screen/components/orderByType.dart';
+import 'package:olx_project_parse/screens/filter_screen/components/section_title.dart';
+import 'package:olx_project_parse/stores/filter_store.dart';
 
 class FilterScreen extends StatelessWidget {
   final focusNode1 = FocusNode();
   final focusNode2 = FocusNode();
   final focusNode3 = FocusNode();
   final focusNode4 = FocusNode();
+
+  final filterStore = FilterStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,86 +88,12 @@ class FilterScreen extends StatelessWidget {
                     focusNode: focusNode2,
                     onTap: () => focusNode2.unfocus(),
                   ),
-                  const SizedBox(height: 16),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 16, left: 8, right: 8),
-                    child: Text(
-                      'Ordenar Por',
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
                   const SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height / 12,
-                          child: RaisedButton.icon(
-                            color: Colors.purple,
-                            shape: StadiumBorder(),
-                            splashColor: Colors.pink.withAlpha(200),
-                            onPressed: () {},
-                            icon: Icon(
-                              FontAwesomeIcons.calendarCheck,
-                              color: Colors.white,
-                            ),
-                            label: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                'Data',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Container(
-                          height: MediaQuery.of(context).size.height / 12,
-                          child: RaisedButton.icon(
-                            color: Colors.purple,
-                            shape: StadiumBorder(),
-                            splashColor: Colors.pink.withAlpha(200),
-                            onPressed: () {},
-                            icon: Icon(
-                              FontAwesomeIcons.moneyBillWave,
-                              color: Colors.white,
-                              size: 22,
-                            ),
-                            label: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                'Preço',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 16, left: 8, right: 8),
-                    child: Text(
-                      'Preço',
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                  Divider(),
+                  OrderByField(filterStore),
+                  const SizedBox(height: 4),
+                  Divider(),
+                  SectionTitle('Preço'),
                   Row(
                     children: [
                       Expanded(
@@ -209,66 +142,9 @@ class FilterScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 16, left: 8, right: 8),
-                    child: Text(
-                      'Tipo de Anunciante',
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 12,
-                            child: RaisedButton(
-                              color: Colors.purple,
-                              shape: StadiumBorder(),
-                              splashColor: Colors.pink.withAlpha(200),
-                              onPressed: () {},
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  'Particular',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 12,
-                            child: RaisedButton(
-                              color: Colors.purple,
-                              shape: StadiumBorder(),
-                              splashColor: Colors.pink.withAlpha(200),
-                              onPressed: () {},
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  'Profissional',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  const SizedBox(height: 4),
+                  Divider(),
+                  OrderByType(filterStore),
                   const SizedBox(height: 16),
                   Container(
                     height: MediaQuery.of(context).size.height / 15,
