@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:olx_project_parse/screens/filter_screen/components/orderByField.dart';
 import 'package:olx_project_parse/screens/filter_screen/components/orderByType.dart';
-import 'package:olx_project_parse/screens/filter_screen/components/section_title.dart';
+import 'package:olx_project_parse/screens/filter_screen/components/price_range_field.dart';
+import 'package:olx_project_parse/screens/filter_screen/components/vendor_type_field.dart';
 import 'package:olx_project_parse/stores/filter_store.dart';
 
 class FilterScreen extends StatelessWidget {
   final focusNode1 = FocusNode();
   final focusNode2 = FocusNode();
-  final focusNode3 = FocusNode();
-  final focusNode4 = FocusNode();
 
   final filterStore = FilterStore();
 
@@ -20,15 +20,16 @@ class FilterScreen extends StatelessWidget {
         title: const Text('Filtrar Busca'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Card(
-            margin: const EdgeInsets.fromLTRB(16, 12, 16, 32),
-            clipBehavior: Clip.antiAlias,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            elevation: 10,
+      body: Center(
+        child: Card(
+          margin: const EdgeInsets.fromLTRB(16, 12, 16, 32),
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 10,
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
               child: Column(
@@ -93,59 +94,11 @@ class FilterScreen extends StatelessWidget {
                   OrderByField(filterStore),
                   const SizedBox(height: 4),
                   Divider(),
-                  SectionTitle('Preço'),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            alignLabelWithHint: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding: const EdgeInsets.all(16),
-                            labelText: "Min",
-                            labelStyle: TextStyle(
-                              color: Colors.black.withAlpha(100),
-                            ),
-                            isDense: true,
-                          ),
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          textInputAction: TextInputAction.next,
-                          focusNode: focusNode3,
-                          onFieldSubmitted: (value) =>
-                              focusNode4.requestFocus(),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            alignLabelWithHint: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding: const EdgeInsets.all(16),
-                            labelText: "Max",
-                            labelStyle: TextStyle(
-                              color: Colors.black.withAlpha(100),
-                            ),
-                            isDense: true,
-                          ),
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          textInputAction: TextInputAction.done,
-                          focusNode: focusNode4,
-                          onFieldSubmitted: (value) => focusNode4.unfocus(),
-                        ),
-                      ),
-                    ],
-                  ),
+                  PriceRangeField(filterStore),
                   const SizedBox(height: 4),
                   Divider(),
-                  OrderByType(filterStore),
-                  const SizedBox(height: 16),
+                  VendorTypeField(filterStore),
+                  const SizedBox(height: 36),
                   Container(
                     height: MediaQuery.of(context).size.height / 15,
                     child: RaisedButton(
