@@ -9,8 +9,8 @@ class AdTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-      height: MediaQuery.of(context).size.height / 4,
+      margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+      height: MediaQuery.of(context).size.height / 4.7,
       child: Card(
         elevation: 5,
         clipBehavior: Clip.antiAlias,
@@ -18,62 +18,66 @@ class AdTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
         ),
-        child: Expanded(
-          child: Row(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
-                width: MediaQuery.of(context).size.height / 4.5,
-                child: CachedNetworkImage(
-                  imageUrl: adItem.images.isEmpty
-                      ? 'https://preppykitchen.com/wp-content/uploads/2019/06/Ultimate-Chocolate-Cake-feature-1200-768x1089.jpg'
-                      : adItem.images.last,
-                  placeholder: (_, url) {
-                    return Image.network(url);
-                  },
-                  fit: BoxFit.cover,
-                ),
+        child: Row(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 4.7,
+              width: MediaQuery.of(context).size.height / 5,
+              child: Image.network(
+                adItem.images.isEmpty
+                    ? 'https://preppykitchen.com/wp-content/uploads/2019/06/Ultimate-Chocolate-Cake-feature-1200-768x1089.jpg'
+                    : adItem.images.last,
+                fit: BoxFit.cover,
+                cacheHeight: 300,
+                cacheWidth: 300,
+                filterQuality: FilterQuality.low,
               ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        adItem.title,
-                        style: TextStyle(
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 16,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      adItem.title,
+                      style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      Text(
-                        adItem.price.formattedMoney(),
-                        style: TextStyle(
+                          color: Colors.white),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    Text(
+                      adItem.price.formattedMoney(),
+                      style: TextStyle(
                           fontSize: 19,
                           fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        '${adItem.dateCreated.formattedDate()} - '
-                        '${adItem.address.city.name} - '
-                        '${adItem.address.uf.initials}',
-                        overflow: TextOverflow.fade,
-                        style: TextStyle(
+                          color: Colors.white),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    Text(
+                      '${adItem.dateCreated.formattedDate()} - '
+                      '${adItem.address.city.name} - '
+                      '${adItem.address.uf.initials}',
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

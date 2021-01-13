@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ],
                     );
-                  else if (homeStore.loading)
+                  else if (homeStore.showProgress)
                     return Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
@@ -120,9 +120,21 @@ class HomeScreen extends StatelessWidget {
                     );
                   else
                     return ListView.builder(
-                      itemCount: homeStore.adList.length,
+                      itemCount: homeStore.itemCount,
                       itemBuilder: (context, index) {
-                        return AdTile(adItem: homeStore.adList[index]);
+                        if (index < homeStore.adList.length)
+                          return AdTile(adItem: homeStore.adList[index]);
+                        else
+                          homeStore.loadNextPage();
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 16),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation(Colors.white),
+                              strokeWidth: 4,
+                            ),
+                          ),
+                        );
                       },
                     );
                 },

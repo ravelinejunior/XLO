@@ -84,6 +84,7 @@ class AdRepository {
     FilterStore filter,
     String search,
     Category category,
+    int page,
   }) async {
     //creating a query builder
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
@@ -91,8 +92,9 @@ class AdRepository {
     //bring the object from the owner (bring objects from our interess)
     queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
 
-    //specify the number of results
-    queryBuilder.setLimit(20);
+    //specify the number of results and skip a certain amount of pages to pagination
+    queryBuilder.setAmountToSkip(page * 10);
+    queryBuilder.setLimit(10);
 
     //get just the ads what are actived
     //queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
