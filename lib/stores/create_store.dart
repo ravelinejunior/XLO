@@ -137,6 +137,7 @@ abstract class _CreateStore with Store {
     setLoading(true);
 
     final ad = Ad();
+    ad.title = title;
     ad.address = address;
     ad.category = category;
     ad.description = description;

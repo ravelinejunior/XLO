@@ -3,6 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
+
+import 'package:olx_project_parse/screens/home_screen/components/ad_tile.dart';
 import 'package:olx_project_parse/screens/home_screen/components/topbar.dart';
 import 'package:olx_project_parse/stores/home_store.dart';
 
@@ -71,6 +73,61 @@ class HomeScreen extends StatelessWidget {
         body: Column(
           children: [
             TopBar(),
+            Expanded(
+              child: Observer(
+                builder: (_) {
+                  if (homeStore.error != null)
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error, color: Colors.white, size: 100),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Ocorreu um erro! Tente novamente. ${homeStore.error}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    );
+                  else if (homeStore.loading)
+                    return Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    );
+                  else if (homeStore.adList.isEmpty)
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(FontAwesomeIcons.searchMinus,
+                            color: Colors.white, size: 100),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Ora ora, parece que a busca não foi encontrada. Tente novamente!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          overflow: TextOverflow.fade,
+                        ),
+                      ],
+                    );
+                  else
+                    return ListView.builder(
+                      itemCount: homeStore.adList.length,
+                      itemBuilder: (context, index) {
+                        return AdTile(adItem: homeStore.adList[index]);
+                      },
+                    );
+                },
+              ),
+            ),
           ],
         ),
       ),

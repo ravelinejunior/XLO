@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
@@ -24,8 +25,10 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        //  physics: NeverScrollableScrollPhysics(),
         controller: pageController,
+        physics: NeverScrollableScrollPhysics(),
+        pageSnapping: mounted,
+        dragStartBehavior: DragStartBehavior.start,
         children: [
           HomeScreen(),
           CreateScreen(),

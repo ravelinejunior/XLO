@@ -30,6 +30,7 @@ class AdRepository {
       adObject.set<bool>(keyAdHidePhone, ad.hidePhone);
       adObject.set<num>(keyAdPrice, ad.price);
       adObject.set<int>(keyAdStatus, ad.status.index);
+      adObject.set<String>(keyAdCity, ad.address.city.name);
       adObject.set<String>(keyAdDistrict, ad.address.disctrict);
       adObject.set<String>(keyAdFederativeUnit, ad.address.uf.initials);
       adObject.set<String>(keyAdPostalCode, ad.address.cep);
@@ -94,7 +95,7 @@ class AdRepository {
     queryBuilder.setLimit(20);
 
     //get just the ads what are actived
-    queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
+    //queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
 
     //cases, search
     if (search != null && search.trim().isNotEmpty) {
