@@ -34,7 +34,7 @@ dependencies:
   intl: ^0.16.1
   flutter_localizations:
     sdk: flutter
-
+  carousel_pro: ^1.0.0
 
 
 
