@@ -8,10 +8,18 @@ import 'package:olx_project_parse/screens/home_screen/components/ad_tile.dart';
 import 'package:olx_project_parse/screens/home_screen/components/topbar.dart';
 import 'package:olx_project_parse/stores/home_store.dart';
 
+import 'components/create_ad_button.dart';
 import 'components/search_dialog.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeStore homeStore = GetIt.I<HomeStore>();
+
+  final ScrollController scrollController = ScrollController();
 
   openSearch(BuildContext context) async {
     //getting text from search dialog
@@ -74,70 +82,83 @@ class HomeScreen extends StatelessWidget {
           children: [
             TopBar(),
             Expanded(
-              child: Observer(
-                builder: (_) {
-                  if (homeStore.error != null)
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.error, color: Colors.white, size: 100),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Ocorreu um erro! Tente novamente. ${homeStore.error}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    );
-                  else if (homeStore.showProgress)
-                    return Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    );
-                  else if (homeStore.adList.isEmpty)
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(FontAwesomeIcons.searchMinus,
-                            color: Colors.white, size: 100),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Ora ora, parece que a busca não foi encontrada. Tente novamente!',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          overflow: TextOverflow.fade,
-                        ),
-                      ],
-                    );
-                  else
-                    return ListView.builder(
-                      itemCount: homeStore.itemCount,
-                      itemBuilder: (context, index) {
-                        if (index < homeStore.adList.length)
-                          return AdTile(adItem: homeStore.adList[index]);
-                        else
-                          homeStore.loadNextPage();
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 16),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
-                              strokeWidth: 4,
+              child: Stack(
+                children: [
+                  Observer(
+                    builder: (_) {
+                      if (homeStore.error != null)
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error, color: Colors.white, size: 100),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Ocorreu um erro! Tente novamente. ${homeStore.error}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
+                          ],
+                        );
+                      else if (homeStore.showProgress)
+                        return Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         );
-                      },
-                    );
-                },
+                      else if (homeStore.adList.isEmpty)
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(FontAwesomeIcons.searchMinus,
+                                color: Colors.white, size: 100),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Ora ora, parece que a busca não foi encontrada. Tente novamente!',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              overflow: TextOverflow.fade,
+                            ),
+                          ],
+                        );
+                      else
+                        return ListView.builder(
+                          controller: scrollController,
+                          itemCount: homeStore.itemCount,
+                          itemBuilder: (context, index) {
+                            if (index < homeStore.adList.length)
+                              return AdTile(adItem: homeStore.adList[index]);
+                            else
+                              homeStore.loadNextPage();
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 16),
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                  strokeWidth: 4,
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                    },
+                  ),
+                  Positioned(
+                    child: CreateAdButton(scrollController),
+                    bottom: -60,
+                    left: 0,
+                    right: 0,
+                  ),
+                ],
               ),
             ),
           ],

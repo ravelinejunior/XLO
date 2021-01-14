@@ -23,14 +23,15 @@ class AdTile extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 4.7,
               width: MediaQuery.of(context).size.height / 5,
-              child: Image.network(
-                adItem.images.isEmpty
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/loading.gif',
+                image: adItem.images.isEmpty
                     ? 'https://preppykitchen.com/wp-content/uploads/2019/06/Ultimate-Chocolate-Cake-feature-1200-768x1089.jpg'
                     : adItem.images.last,
                 fit: BoxFit.cover,
-                cacheHeight: 300,
-                cacheWidth: 300,
-                filterQuality: FilterQuality.low,
+                imageCacheHeight: 300,
+                imageCacheWidth: 300,
+                fadeInCurve: Curves.bounceOut,
               ),
             ),
             Expanded(
