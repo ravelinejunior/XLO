@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+import 'package:olx_project_parse/helpers/extensions.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar(this.ad);
   final Ad ad;
+
   @override
   Widget build(BuildContext context) {
+    final String message =
+        'Olá ${ad.user.name}. Vi seu anúncio no Mari´Cakes e gostei de *${ad.title}* e gostaria de fazer uma oferta inicial de *${ad.price.formattedMoney()}*!';
     return Positioned(
       bottom: 0,
       left: 0,
@@ -15,7 +20,7 @@ class BottomBar extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 26),
-            height: 38,
+            height: 48,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
               color: Colors.orange,
@@ -32,7 +37,7 @@ class BottomBar extends StatelessWidget {
                       },
                       splashColor: Colors.deepOrange,
                       child: Container(
-                        height: 24,
+                        height: 32,
                         alignment: Alignment.center,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,10 +67,17 @@ class BottomBar extends StatelessWidget {
                   ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      final phone =
+                          ad.user.phone.replaceAll(RegExp('[^0-9]'), '');
+                      FlutterOpenWhatsapp.sendSingleMessage(
+                        '55$phone',
+                        message,
+                      );
+                    },
                     splashColor: Colors.red[900],
                     child: Container(
-                      height: 24,
+                      height: 32,
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
