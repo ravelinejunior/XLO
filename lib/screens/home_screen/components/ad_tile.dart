@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/models/ad.dart';
@@ -17,7 +18,7 @@ class AdTile extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-        height: MediaQuery.of(context).size.height / 4.7,
+        height: MediaQuery.of(context).size.height / 4.2,
         child: Card(
           elevation: 5,
           clipBehavior: Clip.antiAlias,
@@ -28,9 +29,9 @@ class AdTile extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4.7,
+                height: MediaQuery.of(context).size.height / 4.2,
                 width: MediaQuery.of(context).size.height / 5,
-                child: FadeInImage.assetNetwork(
+                /* child:FadeInImage.assetNetwork(
                   placeholder: 'assets/loading.gif',
                   image: adItem.images.isEmpty
                       ? 'https://preppykitchen.com/wp-content/uploads/2019/06/Ultimate-Chocolate-Cake-feature-1200-768x1089.jpg'
@@ -39,6 +40,31 @@ class AdTile extends StatelessWidget {
                   imageCacheHeight: 300,
                   imageCacheWidth: 300,
                   fadeInCurve: Curves.bounceOut,
+                ), */
+                child: Carousel(
+                  images: adItem.images
+                      .map(
+                        (url) => FadeInImage.assetNetwork(
+                          placeholder: 'assets/loading.gif',
+                          image: url,
+                          fit: BoxFit.cover,
+                          imageCacheHeight: 300,
+                          imageCacheWidth: 300,
+                        ),
+                      )
+                      .toList(),
+                  indicatorBgPadding: 5,
+                  dotSpacing: 10,
+                  dotSize: 2,
+                  borderRadius: true,
+                  radius: Radius.circular(0),
+                  dotColor: Colors.black,
+                  dotIncreaseSize: 3,
+                  dotIncreasedColor: Colors.deepOrange,
+                  dotBgColor: Colors.transparent,
+                  dotHorizontalPadding: 5,
+                  autoplay: true,
+                  autoplayDuration: Duration(seconds: 10),
                 ),
               ),
               Expanded(

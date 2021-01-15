@@ -1,7 +1,11 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
+import 'package:olx_project_parse/screens/ad_screen/components/description_panel.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/main_panel.dart';
+
+import 'components/ad_owner_panel.dart';
+import 'components/location_panel.dart';
 
 class AdScreen extends StatelessWidget {
   const AdScreen(this.ad);
@@ -49,6 +53,14 @@ class AdScreen extends StatelessWidget {
             child: Column(
               children: [
                 MainPanel(ad),
+                Divider(color: Colors.grey[500]),
+                DescriptionPanel(ad),
+                Divider(color: Colors.grey[500]),
+                LocationPanel(ad),
+                Divider(color: Colors.grey[500]),
+                AdOwnerPanel(ad),
+                Divider(color: Colors.grey[500]),
+                const SizedBox(height: 16),
               ],
             ),
           ),
