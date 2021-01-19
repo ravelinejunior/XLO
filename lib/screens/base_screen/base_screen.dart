@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:olx_project_parse/screens/account_screen/account_screen.dart';
 import 'package:olx_project_parse/screens/create_screen/create_screen.dart';
 import 'package:olx_project_parse/screens/home_screen/home_screen.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
@@ -34,7 +35,7 @@ class _BaseScreenState extends State<BaseScreen> {
           CreateScreen(),
           Container(color: Colors.red.withAlpha(300)),
           Container(color: Colors.redAccent.withAlpha(300)),
-          Container(color: Colors.red.withAlpha(200)),
+          AccountScreen(),
         ],
       ),
     );
