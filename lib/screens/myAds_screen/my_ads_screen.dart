@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:olx_project_parse/stores/myads_store.dart';
 
 class MyAdsScreen extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class MyAdsScreen extends StatefulWidget {
 class _MyAdsScreenState extends State<MyAdsScreen>
     with SingleTickerProviderStateMixin {
   TabController tabController;
+
+  final myAdsStore = MyAdsStore();
 
   @override
   void initState() {

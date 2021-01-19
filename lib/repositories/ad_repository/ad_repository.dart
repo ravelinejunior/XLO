@@ -170,4 +170,34 @@ class AdRepository {
       return Future.error(ParseErrors.getDescription(response.error.code));
     }
   }
+
+  Future<List<Ad>> getMyAds(User user) async {
+    final currentUser = ParseUser('', '', '')
+      ..set(keyUserId, user.id); // creating a pointer
+    final queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(keyAdTable)); // from which table
+    queryBuilder.setLimit(150);
+    queryBuilder.orderByDescending(keyAdCreatedAt); //ordering by date
+    queryBuilder.whereEqualTo(
+        keyAdOwner,
+        currentUser
+            .toPointer()); // the query takes the result from pointer of user
+    //to bring data from the pointers
+    queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
+
+    final response = await queryBuilder.query();
+
+    //verify and if its a success, parse the list data to a ad from parse
+    if (response.success && response.results != null) {
+      //case is a success, return a list of add
+      return response.results
+          .map((parseObj) => Ad.fromParse(
+              parseObj)) // get the map json and transforming in a list of ads
+          .toList();
+    } else if (response.success && response.results == null) {
+      return []; // case non match from the filters, returning an empty list
+    } else {
+      return Future.error(ParseErrors.getDescription(response.error.code));
+    }
+  }
 }
