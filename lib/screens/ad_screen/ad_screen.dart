@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/description_panel.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/main_panel.dart';
+import 'package:olx_project_parse/screens/ad_screen/components/sold_panel.dart';
+import 'package:olx_project_parse/screens/ad_screen/components/waiting_panel.dart';
 
 import 'components/ad_owner_panel.dart';
 import 'components/bottom_bar.dart';
@@ -65,6 +67,14 @@ class AdScreen extends StatelessWidget {
                     if (ad.status == AdStatus.ACTIVE)
                       Divider(color: Colors.grey[500]),
                     SizedBox(height: ad.status == AdStatus.ACTIVE ? 110 : 16),
+                    if (ad.status == AdStatus.PENDING)
+                      Divider(color: Colors.grey[500]),
+                    if (ad.status == AdStatus.PENDING) WaitingPanel(ad),
+                    SizedBox(height: ad.status == AdStatus.PENDING ? 16 : 0),
+                    if (ad.status == AdStatus.SOLD)
+                      Divider(color: Colors.grey[500]),
+                    if (ad.status == AdStatus.SOLD) SoldPanel(ad),
+                    SizedBox(height: ad.status == AdStatus.SOLD ? 16 : 0),
                   ],
                 ),
               ),

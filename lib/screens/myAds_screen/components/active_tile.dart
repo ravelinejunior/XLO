@@ -30,11 +30,11 @@ class ActiveTile extends StatelessWidget {
         ),
         child: Container(
           color: Colors.pink[700].withAlpha(200),
-          height: MediaQuery.of(context).size.height / 5,
+          height: MediaQuery.of(context).size.height / 4.5,
           child: Row(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4.2,
+                height: MediaQuery.of(context).size.height / 4.5,
                 width: MediaQuery.of(context).size.height / 5,
                 child: Carousel(
                   images: ad.images
