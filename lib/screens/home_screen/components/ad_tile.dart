@@ -18,7 +18,7 @@ class AdTile extends StatelessWidget {
       ),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-        height: MediaQuery.of(context).size.height / 4.2,
+        height: MediaQuery.of(context).size.height / 4,
         child: Card(
           elevation: 5,
           clipBehavior: Clip.antiAlias,
@@ -29,7 +29,7 @@ class AdTile extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4.2,
+                height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.height / 5,
                 /* child:FadeInImage.assetNetwork(
                   placeholder: 'assets/loading.gif',
@@ -70,8 +70,8 @@ class AdTile extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 16,
+                    vertical: 8,
+                    horizontal: 12,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,22 +80,24 @@ class AdTile extends StatelessWidget {
                       Text(
                         adItem.title,
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: Colors.white),
                       ),
                       Divider(
-                        thickness: 2,
+                        color: Colors.grey[100].withAlpha(100),
+                        thickness: 1,
                       ),
                       Text(
                         adItem.price.formattedMoney(),
                         style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                       Divider(
-                        thickness: 2,
+                        color: Colors.grey[100].withAlpha(100),
+                        thickness: 1,
                       ),
                       Text(
                         '${adItem.dateCreated.formattedDate()} - '

@@ -1,12 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 
 class ActiveTile extends StatelessWidget {
-  const ActiveTile(this.ad);
+  ActiveTile(this.ad);
   final Ad ad;
+
+  final List<MenuChoice> choices = [
+    MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
+    MenuChoice(index: 1, title: 'Já vendi', iconData: Icons.thumb_up),
+    MenuChoice(index: 2, title: 'Excluir', iconData: Icons.delete),
+  ];
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -23,7 +28,7 @@ class ActiveTile extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height / 4.2,
               width: MediaQuery.of(context).size.height / 5,
-              /*  child: Carousel(
+              child: Carousel(
                 images: ad.images
                     .map(
                       (url) => FadeInImage.assetNetwork(
@@ -46,23 +51,13 @@ class ActiveTile extends StatelessWidget {
                 dotBgColor: Colors.transparent,
                 dotHorizontalPadding: 5,
                 autoplay: true,
-                autoplayDuration: Duration(seconds: 10),
-              ), 
-              */
+                autoplayDuration: Duration(seconds: 15),
+              ),
 
-              child: CachedNetworkImage(
+              /* child: CachedNetworkImage(
                 imageUrl: ad.images.isEmpty ? '' : ad.images.first,
                 fit: BoxFit.cover,
-                placeholder: (_, url) {
-                  return FadeInImage.assetNetwork(
-                    placeholder: 'assets/loading.gif',
-                    image: url,
-                    fit: BoxFit.cover,
-                    imageCacheHeight: 300,
-                    imageCacheWidth: 300,
-                  );
-                },
-              ),
+              ), */
             ),
             const SizedBox(width: 8),
             Expanded(
@@ -82,7 +77,7 @@ class ActiveTile extends StatelessWidget {
                           Text(
                             ad.title,
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
@@ -92,7 +87,7 @@ class ActiveTile extends StatelessWidget {
                           Text(
                             ad.price.formattedMoney(),
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white),
                           ),
@@ -103,7 +98,7 @@ class ActiveTile extends StatelessWidget {
                             '${ad.views} Visitas ',
                             overflow: TextOverflow.fade,
                             style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
@@ -114,9 +109,64 @@ class ActiveTile extends StatelessWidget {
                 ],
               ),
             ),
+            PopupMenuButton<MenuChoice>(
+              icon: Icon(
+                Icons.more_vert_sharp,
+                size: 18,
+                color: Colors.white,
+              ),
+              onSelected: (choice) {
+                switch (choice.index) {
+                  case 0:
+                    //case 0, edit
+                    break;
+                  case 1:
+                    //case 1, sold
+                    break;
+                  case 2:
+                    //case 2, delete
+                    break;
+                }
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              itemBuilder: (_) {
+                return choices
+                    .map(
+                      (choice) => PopupMenuItem<MenuChoice>(
+                        value: choice,
+                        child: Row(
+                          children: [
+                            Icon(
+                              choice.iconData,
+                              size: 20,
+                              color: Colors.purple,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              choice.title,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.purple,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList();
+              },
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class MenuChoice {
+  MenuChoice({this.index, this.iconData, this.title});
+  final int index;
+  final String title;
+  final IconData iconData;
 }
