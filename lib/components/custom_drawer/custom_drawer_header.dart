@@ -48,37 +48,33 @@ class CustomDrawerHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        userManagerStore.isLoggedIn
-                            ? userManagerStore.user.name
-                            : "Acesse sua conta !",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        overflow: TextOverflow.fade,
+                  Container(
+                    margin: const EdgeInsets.only(top: 32.0),
+                    child: Text(
+                      userManagerStore.isLoggedIn
+                          ? userManagerStore.user.name
+                          : "Acesse sua conta !",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                   Divider(color: Colors.white),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        userManagerStore.isLoggedIn
-                            ? userManagerStore.user.email
-                            : "Clique aqui !!! ",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        overflow: TextOverflow.fade,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      userManagerStore.isLoggedIn
+                          ? userManagerStore.user.email
+                          : "Clique aqui !!! ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
                       ),
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                   if (userManagerStore.isLoggedIn) const SizedBox(height: 16),

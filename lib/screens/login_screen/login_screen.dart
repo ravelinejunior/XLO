@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
+import 'package:olx_project_parse/screens/home_screen/home_screen.dart';
 import 'package:olx_project_parse/screens/signup_screen/signup_screen.dart';
 import 'package:olx_project_parse/stores/login_store.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final LoginStore loginStore = LoginStore();
+
   final FocusNode focusNode1 = FocusNode();
+
   final FocusNode focusNode2 = FocusNode();
+
   final FocusNode focusNode3 = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+//só é trigado uma vez
+    when((_) => loginStore.successLogin, () {
+      print("Cheguei aqui");
+      Navigator.of(context).pop();
+      GetIt.I<PageStore>().setPage(0);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

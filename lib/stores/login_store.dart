@@ -66,6 +66,9 @@ abstract class _LoginStore with Store {
   @observable
   bool showErrorBox = false;
 
+  @observable
+  bool successLogin = false;
+
   @action
   setShowError(bool value) => showErrorBox = value;
 
@@ -76,6 +79,7 @@ abstract class _LoginStore with Store {
       final user = await UserRepository().loginWithEmail(email, password);
       //salvar usuario no singleton da classe main
       GetIt.I<UserManagerStore>().setUser(user);
+      successLogin = true;
     } catch (e) {
       error = e.toString();
       showErrorBoxDisplay();

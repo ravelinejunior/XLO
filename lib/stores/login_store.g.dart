@@ -113,6 +113,21 @@ mixin _$LoginStore on _LoginStore, Store {
     });
   }
 
+  final _$successLoginAtom = Atom(name: '_LoginStore.successLogin');
+
+  @override
+  bool get successLogin {
+    _$successLoginAtom.reportRead();
+    return super.successLogin;
+  }
+
+  @override
+  set successLogin(bool value) {
+    _$successLoginAtom.reportWrite(value, super.successLogin, () {
+      super.successLogin = value;
+    });
+  }
+
   final _$_LoginStoreActionController = ActionController(name: '_LoginStore');
 
   @override
@@ -167,6 +182,7 @@ password: ${password},
 loading: ${loading},
 error: ${error},
 showErrorBox: ${showErrorBox},
+successLogin: ${successLogin},
 emailValid: ${emailValid},
 passwordValid: ${passwordValid},
 isFormValid: ${isFormValid},

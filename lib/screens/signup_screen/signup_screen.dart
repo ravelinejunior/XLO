@@ -2,17 +2,44 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
+import 'package:olx_project_parse/screens/home_screen/home_screen.dart';
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:olx_project_parse/stores/signup_store.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
   final SignupStore signupStore = SignupStore();
+
   final FocusNode focusNode1 = FocusNode();
+
   final FocusNode focusNode2 = FocusNode();
+
   final FocusNode focusNode3 = FocusNode();
+
   final FocusNode focusNode4 = FocusNode();
+
   final FocusNode focusNode5 = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+//só é trigado uma vez
+    when((_) => signupStore.successLogin, () {
+      print("Cheguei aqui");
+      Navigator.of(context).pop();
+      GetIt.I<PageStore>().setPage(0);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +158,7 @@ class SignupScreen extends StatelessWidget {
                               ),
                               keyboardType: TextInputType.phone,
                               inputFormatters: [
-                                WhitelistingTextInputFormatter.digitsOnly,
+                                FilteringTextInputFormatter.digitsOnly,
                                 TelefoneInputFormatter(),
                               ],
                               onChanged: signupStore.setPhone,
@@ -218,21 +245,19 @@ class SignupScreen extends StatelessWidget {
                             return Container(
                               height: 60,
                               margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
-                              child: Observer(builder: (_) {
-                                return RaisedButton(
-                                  splashColor: Colors.red,
-                                  onPressed: signupStore.signupButtonPressed,
-                                  disabledColor:
-                                      Colors.deepOrangeAccent.withAlpha(100),
-                                  child: Text(
-                                    'Cadastrar',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
-                                  color: Colors.orange,
-                                  shape: StadiumBorder(),
-                                  textColor: Colors.black,
-                                );
-                              }),
+                              child: RaisedButton(
+                                splashColor: Colors.red,
+                                onPressed: signupStore.signupButtonPressed,
+                                disabledColor:
+                                    Colors.deepOrangeAccent.withAlpha(100),
+                                child: Text(
+                                  'Cadastrar',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                color: Colors.orange,
+                                shape: StadiumBorder(),
+                                textColor: Colors.black,
+                              ),
                             );
                         }),
 
