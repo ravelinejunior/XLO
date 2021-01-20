@@ -15,6 +15,9 @@ abstract class _MyAdsStore with Store {
   @observable
   List<Ad> allAds = [];
 
+  @observable
+  bool loading = false;
+
 //get all actived adds
   @computed
   List<Ad> get activeAds =>
@@ -31,11 +34,14 @@ abstract class _MyAdsStore with Store {
       allAds.where((ad) => ad.status == AdStatus.SOLD).toList();
 
   Future<void> _getMyAds() async {
+    loading = true;
     final user = GetIt.I<UserManagerStore>().user;
     try {
       allAds = await AdRepository().getMyAds(user);
     } catch (e) {
       print(e);
     }
+
+    loading = false;
   }
 }

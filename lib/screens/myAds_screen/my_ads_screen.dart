@@ -43,6 +43,13 @@ class _MyAdsScreenState extends State<MyAdsScreen>
         controller: tabController,
         children: [
           Observer(builder: (_) {
+            if (myAdsStore.loading)
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                  strokeWidth: 4,
+                ),
+              );
             if (myAdsStore.activeAds.isEmpty)
               return ErrorBox(
                 message: "Não há nenhum produto ativo.",
@@ -56,6 +63,13 @@ class _MyAdsScreenState extends State<MyAdsScreen>
               );
           }),
           Observer(builder: (_) {
+            if (myAdsStore.loading)
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                  strokeWidth: 4,
+                ),
+              );
             if (myAdsStore.pendingAds.isEmpty)
               return ErrorBox(
                 message: "Não há nenhum produto pendente.",
@@ -69,6 +83,13 @@ class _MyAdsScreenState extends State<MyAdsScreen>
               );
           }),
           Observer(builder: (_) {
+            if (myAdsStore.loading)
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                  strokeWidth: 4,
+                ),
+              );
             if (myAdsStore.soldAds.isEmpty)
               return ErrorBox(
                 message: "Não há nenhum produto vendido.",
