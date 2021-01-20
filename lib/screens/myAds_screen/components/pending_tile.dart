@@ -4,15 +4,10 @@ import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/screens/ad_screen/ad_screen.dart';
 
-class ActiveTile extends StatelessWidget {
-  ActiveTile(this.ad);
+class PendingTile extends StatelessWidget {
+  PendingTile(this.ad);
   final Ad ad;
 
-  final List<MenuChoice> choices = [
-    MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
-    MenuChoice(index: 1, title: 'Já vendi', iconData: Icons.thumb_up),
-    MenuChoice(index: 2, title: 'Excluir', iconData: Icons.delete),
-  ];
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -26,15 +21,15 @@ class ActiveTile extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         elevation: 8,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(16),
         ),
         child: Container(
           color: Colors.pink[700].withAlpha(200),
-          height: MediaQuery.of(context).size.height / 5,
+          height: MediaQuery.of(context).size.height / 4.3,
           child: Row(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height / 4.2,
+                height: MediaQuery.of(context).size.height / 4.3,
                 width: MediaQuery.of(context).size.height / 5,
                 child: Carousel(
                   images: ad.images
@@ -75,8 +70,8 @@ class ActiveTile extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 16,
+                          vertical: 4,
+                          horizontal: 4,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +85,8 @@ class ActiveTile extends StatelessWidget {
                                   color: Colors.white),
                             ),
                             Divider(
-                              thickness: 2,
+                              thickness: 1,
+                              color: Colors.grey[100].withAlpha(100),
                             ),
                             Text(
                               ad.price.formattedMoney(),
@@ -100,15 +96,24 @@ class ActiveTile extends StatelessWidget {
                                   color: Colors.white),
                             ),
                             Divider(
-                              thickness: 2,
+                              thickness: 1,
+                              color: Colors.grey[100].withAlpha(100),
                             ),
-                            Text(
-                              '${ad.views} Visitas ',
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Icon(Icons.timer,
+                                    color: Colors.orange, size: 16),
+                                const SizedBox(width: 8),
+                                Text(
+                                  'AGUARDANDO PUBLICAÇÃO',
+                                  overflow: TextOverflow.fade,
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.orange),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -117,65 +122,10 @@ class ActiveTile extends StatelessWidget {
                   ],
                 ),
               ),
-              PopupMenuButton<MenuChoice>(
-                icon: Icon(
-                  Icons.more_vert_sharp,
-                  size: 18,
-                  color: Colors.white,
-                ),
-                onSelected: (choice) {
-                  switch (choice.index) {
-                    case 0:
-                      //case 0, edit
-                      break;
-                    case 1:
-                      //case 1, sold
-                      break;
-                    case 2:
-                      //case 2, delete
-                      break;
-                  }
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)),
-                itemBuilder: (_) {
-                  return choices
-                      .map(
-                        (choice) => PopupMenuItem<MenuChoice>(
-                          value: choice,
-                          child: Row(
-                            children: [
-                              Icon(
-                                choice.iconData,
-                                size: 20,
-                                color: Colors.purple,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                choice.title,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.purple,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList();
-                },
-              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-class MenuChoice {
-  MenuChoice({this.index, this.iconData, this.title});
-  final int index;
-  final String title;
-  final IconData iconData;
 }

@@ -62,8 +62,9 @@ class AdScreen extends StatelessWidget {
                     LocationPanel(ad),
                     Divider(color: Colors.grey[500]),
                     AdOwnerPanel(ad),
-                    Divider(color: Colors.grey[500]),
-                    const SizedBox(height: 110),
+                    if (ad.status == AdStatus.ACTIVE)
+                      Divider(color: Colors.grey[500]),
+                    SizedBox(height: ad.status == AdStatus.ACTIVE ? 110 : 16),
                   ],
                 ),
               ),

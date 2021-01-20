@@ -4,6 +4,8 @@ import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/stores/myads_store.dart';
 
 import 'components/active_tile.dart';
+import 'components/pending_tile.dart';
+import 'components/sold_tile.dart';
 
 class MyAdsScreen extends StatefulWidget {
   @override
@@ -61,8 +63,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
             else
               return ListView.builder(
                 itemBuilder: (_, index) {
-                  // return PendingTile(myAdsStore.pendingAds[index]);
-                  return Container();
+                  return PendingTile(myAdsStore.pendingAds[index]);
                 },
                 itemCount: myAdsStore.pendingAds.length,
               );
@@ -75,8 +76,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
             else
               return ListView.builder(
                 itemBuilder: (_, index) {
-                  //  return SoldTile(myAdsStore.soldAds[index]);
-                  return Container();
+                  return SoldTile(myAdsStore.soldAds[index]);
                 },
                 itemCount: myAdsStore.soldAds.length,
               );
