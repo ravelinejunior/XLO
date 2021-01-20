@@ -30,6 +30,7 @@ class AdRepository {
       adObject.set<bool>(keyAdHidePhone, ad.hidePhone);
       adObject.set<num>(keyAdPrice, ad.price);
       adObject.set<int>(keyAdStatus, ad.status.index);
+      adObject.set<String>(keyAdCity, ad.address.city.name);
       adObject.set<String>(keyAdDistrict, ad.address.disctrict);
       adObject.set<String>(keyAdFederativeUnit, ad.address.uf.initials);
       adObject.set<String>(keyAdPostalCode, ad.address.cep);
@@ -83,6 +84,7 @@ class AdRepository {
     FilterStore filter,
     String search,
     Category category,
+    int page,
   }) async {
     //creating a query builder
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
@@ -90,11 +92,12 @@ class AdRepository {
     //bring the object from the owner (bring objects from our interess)
     queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
 
-    //specify the number of results
-    queryBuilder.setLimit(20);
+    //specify the number of results and skip a certain amount of pages to pagination
+    queryBuilder.setAmountToSkip(page * 10);
+    queryBuilder.setLimit(10);
 
     //get just the ads what are actived
-    queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
+    //queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
 
     //cases, search
     if (search != null && search.trim().isNotEmpty) {
@@ -155,6 +158,36 @@ class AdRepository {
 
     //the response is the list with all those filters
     final response = await queryBuilder.query();
+    if (response.success && response.results != null) {
+      //case is a success, return a list of add
+      return response.results
+          .map((parseObj) => Ad.fromParse(
+              parseObj)) // get the map json and transforming in a list of ads
+          .toList();
+    } else if (response.success && response.results == null) {
+      return []; // case non match from the filters, returning an empty list
+    } else {
+      return Future.error(ParseErrors.getDescription(response.error.code));
+    }
+  }
+
+  Future<List<Ad>> getMyAds(User user) async {
+    final currentUser = ParseUser('', '', '')
+      ..set(keyUserId, user.id); // creating a pointer
+    final queryBuilder =
+        QueryBuilder<ParseObject>(ParseObject(keyAdTable)); // from which table
+    queryBuilder.setLimit(150);
+    queryBuilder.orderByDescending(keyAdCreatedAt); //ordering by date
+    queryBuilder.whereEqualTo(
+        keyAdOwner,
+        currentUser
+            .toPointer()); // the query takes the result from pointer of user
+    //to bring data from the pointers
+    queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
+
+    final response = await queryBuilder.query();
+
+    //verify and if its a success, parse the list data to a ad from parse
     if (response.success && response.results != null) {
       //case is a success, return a list of add
       return response.results

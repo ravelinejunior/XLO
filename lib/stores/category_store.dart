@@ -26,7 +26,6 @@ abstract class _CategoryStore with Store {
   @action
   void setCategories(List<Category> categories) {
     categoryList.clear();
-
     categoryList.addAll(categories);
   }
 

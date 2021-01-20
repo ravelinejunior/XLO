@@ -137,6 +137,9 @@ abstract class _SignupStoreBase with Store {
   @action
   setShowError(bool value) => showErrorBox = value;
 
+  @observable
+  bool successLogin = false;
+
   //cadastrar
   Future<void> _signupCall() async {
     setLoading(true);
@@ -147,6 +150,7 @@ abstract class _SignupStoreBase with Store {
       final resultUser = await UserRepository().signupUser(user);
       //salvar usuario no singleton da classe main
       GetIt.I<UserManagerStore>().setUser(resultUser);
+      successLogin = true;
       await Future.delayed(Duration(seconds: 1));
     } catch (e) {
       error = e;

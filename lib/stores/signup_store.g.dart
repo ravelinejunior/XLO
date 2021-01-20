@@ -179,6 +179,21 @@ mixin _$SignupStore on _SignupStoreBase, Store {
     });
   }
 
+  final _$successLoginAtom = Atom(name: '_SignupStoreBase.successLogin');
+
+  @override
+  bool get successLogin {
+    _$successLoginAtom.reportRead();
+    return super.successLogin;
+  }
+
+  @override
+  set successLogin(bool value) {
+    _$successLoginAtom.reportWrite(value, super.successLogin, () {
+      super.successLogin = value;
+    });
+  }
+
   final _$_SignupStoreBaseActionController =
       ActionController(name: '_SignupStoreBase');
 
@@ -281,6 +296,7 @@ passwordCopy: ${passwordCopy},
 loading: ${loading},
 error: ${error},
 showErrorBox: ${showErrorBox},
+successLogin: ${successLogin},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},
