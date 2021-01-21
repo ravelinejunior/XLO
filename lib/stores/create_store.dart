@@ -6,11 +6,28 @@ import 'package:olx_project_parse/models/address.dart';
 import 'package:olx_project_parse/models/category.dart';
 import 'package:olx_project_parse/repositories/ad_repository/ad_repository.dart';
 import 'package:olx_project_parse/stores/cep_store.dart';
+import 'package:olx_project_parse/helpers/extensions.dart';
 part 'create_store.g.dart';
 
 class CreateStore = _CreateStore with _$CreateStore;
 
 abstract class _CreateStore with Store {
+  _CreateStore(this.ad) {
+    //set the data from ad in the create store variable
+    title = ad.title ?? '';
+    description = ad.description ?? '';
+    images = ad.images.asObservable() ?? '';
+    category = ad.category;
+    priceText = ad.price?.toStringAsFixed(2) ?? '';
+    hidePhone = ad.hidePhone;
+
+    //setting the map
+    if (ad.address != null)
+      cepStore = CepStore(ad.address.cep);
+    else
+      cepStore = CepStore(null);
+  }
+  final Ad ad;
   ObservableList images = ObservableList();
 
   @observable
@@ -35,14 +52,14 @@ abstract class _CreateStore with Store {
   void setTitle(String value) => title = value;
 
   @computed
-  bool get titleValid => title.length >= 6;
+  bool get titleValid => title.length >= 2;
   String get titleError {
     if (!showErrors || titleValid)
       return null;
     else if (title.isEmpty)
       return "Campo obrigatório";
     else
-      return "Título deve conter mínimo 6 caracteres";
+      return "Título deve conter mínimo 2 caracteres";
   }
 
   @observable
@@ -83,7 +100,7 @@ abstract class _CreateStore with Store {
   @action
   void setHidePhone(bool value) => hidePhone = value;
 
-  CepStore cepStore = CepStore();
+  CepStore cepStore;
 
   @computed
   Address get address => cepStore.address;
@@ -136,7 +153,6 @@ abstract class _CreateStore with Store {
   Future<void> _send() async {
     setLoading(true);
 
-    final ad = Ad();
     ad.title = title;
     ad.address = address;
     ad.category = category;

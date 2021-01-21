@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ImageDialog extends StatelessWidget {
@@ -13,7 +15,10 @@ class ImageDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Image.file(image, fit: BoxFit.cover),
+            if (image is File)
+              Image.file(image, fit: BoxFit.cover)
+            else
+              Image.network(image),
             FlatButton.icon(
               color: Colors.white,
               splashColor: Colors.red.withAlpha(100),

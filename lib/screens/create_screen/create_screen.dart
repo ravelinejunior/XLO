@@ -6,8 +6,10 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
+import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/screens/category_screen/components/category_field.dart';
 import 'package:olx_project_parse/screens/create_screen/components/hide_phone_field.dart';
+import 'package:olx_project_parse/screens/myAds_screen/my_ads_screen.dart';
 import 'package:olx_project_parse/stores/create_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 
@@ -15,12 +17,19 @@ import 'components/cep_field.dart';
 import 'components/images_field.dart';
 
 class CreateScreen extends StatefulWidget {
+  CreateScreen({this.ad});
+  final Ad ad;
   @override
-  _CreateScreenState createState() => _CreateScreenState();
+  _CreateScreenState createState() => _CreateScreenState(ad);
 }
 
 class _CreateScreenState extends State<CreateScreen> {
-  final CreateStore createStore = CreateStore();
+  //in case there is a ad to edit in create screen
+  _CreateScreenState(Ad ad)
+      : editing = ad != null,
+        createStore = CreateStore(ad ?? Ad());
+  final CreateStore createStore;
+  bool editing;
 
   @override
   void initState() {
@@ -28,9 +37,15 @@ class _CreateScreenState extends State<CreateScreen> {
 
 //só é trigado uma vez
     when((_) => createStore.savedAd != null && createStore.savedAd, () {
-      print("Cheguei aqui");
-      GetIt.I<PageStore>().setPage(0);
-      // Navigator.of(context).pop();
+      if (editing)
+        Navigator.of(context)
+            .pop(true); // true to indicate that the ad was saved
+      else {
+        GetIt.I<PageStore>().setPage(0);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MyAdsScreen(initialPage: 1),
+        ));
+      }
     });
   }
 
@@ -38,10 +53,12 @@ class _CreateScreenState extends State<CreateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Criar Anúncio'),
+        title: editing
+            ? const Text('Editar Anúncio')
+            : const Text('Criar Anúncio'),
         centerTitle: true,
       ),
-      drawer: CustomDrawer(),
+      drawer: editing ? null : CustomDrawer(),
       body: Container(
         alignment: Alignment.center,
         child: SingleChildScrollView(
@@ -68,6 +85,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         Observer(builder: (_) {
                           return TextFormField(
                             enabled: !createStore.loading,
+                            initialValue: createStore.title,
                             decoration: InputDecoration(
                               alignLabelWithHint: true,
                               border: OutlineInputBorder(
@@ -91,6 +109,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         Observer(builder: (_) {
                           return TextFormField(
                             enabled: !createStore.loading,
+                            initialValue: createStore.description,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -120,6 +139,7 @@ class _CreateScreenState extends State<CreateScreen> {
                         Observer(builder: (_) {
                           return TextFormField(
                             enabled: !createStore.loading,
+                            initialValue: createStore.priceText,
                             onChanged: createStore.setPrice,
                             decoration: InputDecoration(
                               alignLabelWithHint: true,

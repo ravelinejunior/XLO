@@ -17,6 +17,7 @@ class CepField extends StatelessWidget {
         Observer(
           builder: (_) {
             return TextFormField(
+              initialValue: cepStore.cep,
               enabled: !createStore.loading,
               decoration: InputDecoration(
                 alignLabelWithHint: true,
@@ -48,9 +49,8 @@ class CepField extends StatelessWidget {
             builder: (_) {
               if (cepStore.address == null &&
                   cepStore.error == null &&
-                  !cepStore.loading)
-                return Container();
-              else if (cepStore.address == null &&
+                  !cepStore.loading) return Container();
+              if (cepStore.address == null &&
                   cepStore.error == null &&
                   cepStore.loading)
                 return Center(
@@ -59,7 +59,7 @@ class CepField extends StatelessWidget {
                     strokeWidth: 4,
                   ),
                 );
-              else if (cepStore.error != null)
+              if (cepStore.error != null)
                 return Card(
                   clipBehavior: Clip.antiAlias,
                   color: Colors.redAccent.withAlpha(100),

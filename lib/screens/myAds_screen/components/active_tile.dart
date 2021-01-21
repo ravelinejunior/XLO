@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/screens/ad_screen/ad_screen.dart';
+import 'package:olx_project_parse/screens/create_screen/create_screen.dart';
+import 'package:olx_project_parse/stores/myads_store.dart';
 
 class ActiveTile extends StatelessWidget {
-  ActiveTile(this.ad);
+  ActiveTile(this.ad, this.myAdsStore);
   final Ad ad;
+  final MyAdsStore myAdsStore;
 
   final List<MenuChoice> choices = [
     MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
@@ -127,6 +130,7 @@ class ActiveTile extends StatelessWidget {
                   switch (choice.index) {
                     case 0:
                       //case 0, edit
+                      editAd(context);
                       break;
                     case 1:
                       //case 1, sold
@@ -170,6 +174,17 @@ class ActiveTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> editAd(BuildContext context) async {
+    //receive the 'true' passed on createdscreec
+    final success = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => CreateScreen(ad: ad),
+    ));
+    if (success != null && success) {
+      //update the screen
+      await myAdsStore.refresh();
+    }
   }
 }
 

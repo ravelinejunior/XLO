@@ -8,6 +8,8 @@ import 'components/pending_tile.dart';
 import 'components/sold_tile.dart';
 
 class MyAdsScreen extends StatefulWidget {
+  const MyAdsScreen({this.initialPage = 0});
+  final int initialPage;
   @override
   _MyAdsScreenState createState() => _MyAdsScreenState();
 }
@@ -21,7 +23,8 @@ class _MyAdsScreenState extends State<MyAdsScreen>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController =
+        TabController(length: 3, vsync: this, initialIndex: widget.initialPage);
   }
 
   @override
@@ -57,7 +60,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
             else
               return ListView.builder(
                 itemBuilder: (_, index) {
-                  return ActiveTile(myAdsStore.activeAds[index]);
+                  return ActiveTile(myAdsStore.activeAds[index], myAdsStore);
                 },
                 itemCount: myAdsStore.activeAds.length,
               );

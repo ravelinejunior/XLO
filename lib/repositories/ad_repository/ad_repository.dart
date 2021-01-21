@@ -19,6 +19,9 @@ class AdRepository {
       // parse object é o nome da tabela
       final adObject = ParseObject(keyAdTable);
 
+      //to edit the ad, verify if the ad id is diff than null
+      if (ad.id != null) adObject.objectId = ad.id;
+
       //acl é para verificação de leitura e escrita nos objetos
       final parseAcl = ParseACL(owner: parseUser);
       parseAcl.setPublicReadAccess(allowed: true);

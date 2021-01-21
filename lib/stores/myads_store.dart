@@ -44,4 +44,6 @@ abstract class _MyAdsStore with Store {
 
     loading = false;
   }
+
+  Future<void> refresh() async => _getMyAds();
 }
