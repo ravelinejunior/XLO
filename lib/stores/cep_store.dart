@@ -36,7 +36,7 @@ abstract class _CepStore with Store {
   void setCep(String value) => cep = value;
 
   @computed
-  String get clearCep => cep.trim().replaceAll(RegExp('[[^0-9]]'), '');
+  String get clearCep => cep.replaceAll(RegExp('[^0-9]'), '');
 
   @action
   Future<void> _searchCep() async {

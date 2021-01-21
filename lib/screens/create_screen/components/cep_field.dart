@@ -18,6 +18,7 @@ class CepField extends StatelessWidget {
           builder: (_) {
             return TextFormField(
               initialValue: cepStore.cep,
+              onChanged: cepStore.setCep,
               enabled: !createStore.loading,
               decoration: InputDecoration(
                 alignLabelWithHint: true,
@@ -38,7 +39,6 @@ class CepField extends StatelessWidget {
                 FilteringTextInputFormatter.digitsOnly
               ],
               keyboardType: TextInputType.number,
-              onChanged: cepStore.setCep,
             );
           },
         ),
@@ -49,8 +49,9 @@ class CepField extends StatelessWidget {
             builder: (_) {
               if (cepStore.address == null &&
                   cepStore.error == null &&
-                  !cepStore.loading) return Container();
-              if (cepStore.address == null &&
+                  !cepStore.loading)
+                return Container();
+              else if (cepStore.address == null &&
                   cepStore.error == null &&
                   cepStore.loading)
                 return Center(
@@ -59,7 +60,7 @@ class CepField extends StatelessWidget {
                     strokeWidth: 4,
                   ),
                 );
-              if (cepStore.error != null)
+              else if (cepStore.error != null)
                 return Card(
                   clipBehavior: Clip.antiAlias,
                   color: Colors.redAccent.withAlpha(100),
