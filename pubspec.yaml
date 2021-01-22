@@ -38,6 +38,7 @@ dependencies:
   readmore: ^1.0.0
   url_launcher: ^5.7.10
   flutter_open_whatsapp: ^0.1.2
+  toggle_switch: "^0.1.8"
 
 
 dev_dependencies:

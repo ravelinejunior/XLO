@@ -100,7 +100,7 @@ class AdRepository {
     queryBuilder.setLimit(10);
 
     //get just the ads what are actived
-    //queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
+    queryBuilder.whereNotEqualTo(keyAdStatus, AdStatus.DELETED.index);
 
     //cases, search
     if (search != null && search.trim().isNotEmpty) {

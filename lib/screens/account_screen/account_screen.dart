@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
+import 'package:olx_project_parse/screens/edit_account_screen/edit_account_screen.dart';
 import 'package:olx_project_parse/screens/myAds_screen/my_ads_screen.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -60,7 +61,11 @@ class AccountScreen extends StatelessWidget {
                           color: Colors.purple[700],
                         ),
                         shape: StadiumBorder(),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (_) => EditAccountScreen(),
+                          ));
+                        },
                         label: Text(
                           'EDITAR',
                           style: TextStyle(
