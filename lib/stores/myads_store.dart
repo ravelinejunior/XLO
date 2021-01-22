@@ -46,4 +46,20 @@ abstract class _MyAdsStore with Store {
   }
 
   Future<void> refresh() async => _getMyAds();
+
+  //sell ads
+  @action
+  Future<void> sellAd(Ad ad) async {
+    loading = true;
+    await AdRepository().sellAd(ad);
+    refresh();
+  }
+
+  //sell ads
+  @action
+  Future<void> deleteAd(Ad ad) async {
+    loading = true;
+    await AdRepository().deleteAd(ad);
+    refresh();
+  }
 }

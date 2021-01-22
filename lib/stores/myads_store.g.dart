@@ -60,6 +60,20 @@ mixin _$MyAdsStore on _MyAdsStore, Store {
     });
   }
 
+  final _$sellAdAsyncAction = AsyncAction('_MyAdsStore.sellAd');
+
+  @override
+  Future<void> sellAd(Ad ad) {
+    return _$sellAdAsyncAction.run(() => super.sellAd(ad));
+  }
+
+  final _$deleteAdAsyncAction = AsyncAction('_MyAdsStore.deleteAd');
+
+  @override
+  Future<void> deleteAd(Ad ad) {
+    return _$deleteAdAsyncAction.run(() => super.deleteAd(ad));
+  }
+
   @override
   String toString() {
     return '''

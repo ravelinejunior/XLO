@@ -2,10 +2,13 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
+import 'package:olx_project_parse/stores/myads_store.dart';
 
 class SoldTile extends StatelessWidget {
-  SoldTile(this.ad);
+  SoldTile(this.ad, this.myAdsStore);
   final Ad ad;
+
+  final MyAdsStore myAdsStore;
 
   final List<MenuChoice> choices = [
     MenuChoice(
@@ -126,6 +129,7 @@ class SoldTile extends StatelessWidget {
                   onSelected: (choice) {
                     switch (choice.index) {
                       case 0:
+                        deleteSoldAd(context);
                         //case 0, delete
                         break;
                     }
@@ -165,6 +169,47 @@ class SoldTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> deleteSoldAd(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text('Deletar Anúncio'),
+              content:
+                  Text('Deseja deletar ${ad.title.toUpperCase()} para sempre?'),
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32)),
+              elevation: 10,
+              actions: [
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.blue[800],
+                  ),
+                  textColor: Colors.blue[800],
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  label: Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.delete_forever,
+                    color: Colors.red,
+                  ),
+                  textColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  label: Text('Confirmar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    myAdsStore.deleteAd(ad);
+                  },
+                ),
+              ],
+            ));
   }
 }
 

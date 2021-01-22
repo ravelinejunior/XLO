@@ -1,5 +1,6 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/screens/ad_screen/ad_screen.dart';
@@ -134,9 +135,11 @@ class ActiveTile extends StatelessWidget {
                       break;
                     case 1:
                       //case 1, sold
+                      soldAd(context);
                       break;
                     case 2:
                       //case 2, delete
+                      deleteAd(context);
                       break;
                   }
                 },
@@ -185,6 +188,88 @@ class ActiveTile extends StatelessWidget {
       //update the screen
       await myAdsStore.refresh();
     }
+  }
+
+  Future<void> soldAd(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text('Anúncio Vendido'),
+              content: Text(
+                  'Deseja confirmar a venda de ${ad.title.toUpperCase()}?'),
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32)),
+              elevation: 10,
+              actions: [
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.blue[800],
+                  ),
+                  textColor: Colors.blue[800],
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  label: Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.money_off_sharp,
+                    color: Colors.red,
+                  ),
+                  textColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  label: Text('Confirmar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    myAdsStore.sellAd(ad);
+                  },
+                ),
+              ],
+            ));
+  }
+
+  Future<void> deleteAd(BuildContext context) async {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: const Text('Deletar Anúncio'),
+              content:
+                  Text('Deseja deletar ${ad.title.toUpperCase()} para sempre?'),
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32)),
+              elevation: 10,
+              actions: [
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.blue[800],
+                  ),
+                  textColor: Colors.blue[800],
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  label: Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton.icon(
+                  icon: Icon(
+                    Icons.delete_forever,
+                    color: Colors.red,
+                  ),
+                  textColor: Colors.red,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  label: Text('Confirmar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    myAdsStore.deleteAd(ad);
+                  },
+                ),
+              ],
+            ));
   }
 }
 

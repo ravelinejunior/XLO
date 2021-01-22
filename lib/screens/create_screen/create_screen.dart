@@ -100,6 +100,8 @@ class _CreateScreenState extends State<CreateScreen> {
                               prefixIcon: Icon(Icons.title),
                               isDense: true,
                             ),
+                            maxLengthEnforced: true,
+                            maxLength: 30,
                             onChanged: createStore.setTitle,
                             keyboardType: TextInputType.text,
                           );

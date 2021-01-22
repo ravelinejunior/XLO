@@ -100,7 +100,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
             else
               return ListView.builder(
                 itemBuilder: (_, index) {
-                  return SoldTile(myAdsStore.soldAds[index]);
+                  return SoldTile(myAdsStore.soldAds[index], myAdsStore);
                 },
                 itemCount: myAdsStore.soldAds.length,
               );
