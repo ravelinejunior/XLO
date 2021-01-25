@@ -109,6 +109,11 @@ abstract class _EditAccountStore with Store {
   @observable
   bool successful = false;
 
+  @observable
+  bool cancel = false;
+
+  void setCancel(bool value) => cancel = value;
+
   @action
   Future<void> _updateUserData() async {
     loading = true;
@@ -131,7 +136,6 @@ abstract class _EditAccountStore with Store {
 
     Future.delayed(Duration(seconds: 1)).then((value) {
       loading = false;
-      successful = false;
     });
   }
 }

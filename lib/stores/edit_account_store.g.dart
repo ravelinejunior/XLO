@@ -157,6 +157,21 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
     });
   }
 
+  final _$cancelAtom = Atom(name: '_EditAccountStore.cancel');
+
+  @override
+  bool get cancel {
+    _$cancelAtom.reportRead();
+    return super.cancel;
+  }
+
+  @override
+  set cancel(bool value) {
+    _$cancelAtom.reportWrite(value, super.cancel, () {
+      super.cancel = value;
+    });
+  }
+
   final _$_updateUserDataAsyncAction =
       AsyncAction('_EditAccountStore._updateUserData');
 
@@ -233,6 +248,7 @@ password: ${password},
 confirmPass: ${confirmPass},
 loading: ${loading},
 successful: ${successful},
+cancel: ${cancel},
 nameValid: ${nameValid},
 phoneValid: ${phoneValid},
 passwordValid: ${passwordValid},

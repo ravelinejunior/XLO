@@ -228,22 +228,22 @@ class EditAccountScreen extends StatelessWidget {
                                             editAccountStore
                                                 .editPressedButton();
                                             Navigator.of(context).pop();
+                                            Fluttertoast.showToast(
+                                              msg:
+                                                  "Dados atualizados com sucesso!",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.BOTTOM,
+                                              timeInSecForIosWeb: 2,
+                                              backgroundColor: Colors.black54,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0,
+                                            ).then((value) {
+                                              Navigator.of(context).pop();
+                                            });
                                           },
                                         ),
                                       ],
-                                    )).then((value) {
-                              Fluttertoast.showToast(
-                                msg: "Dados atualizados com sucesso!",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 2,
-                                backgroundColor: Colors.black54,
-                                textColor: Colors.white,
-                                fontSize: 16.0,
-                              ).then((value) {
-                                Navigator.of(context).pop();
-                              });
-                            });
+                                    ));
                           },
                           disabledColor: Colors.grey.withAlpha(100),
                           child: Text(
@@ -307,22 +307,21 @@ class EditAccountScreen extends StatelessWidget {
                                         userManagerStore.userLogout();
                                         Navigator.of(context).pop();
                                         GetIt.I<PageStore>().setPage(0);
+                                        Fluttertoast.showToast(
+                                          msg: "Sessão finalizada com sucesso!",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 2,
+                                          backgroundColor: Colors.black54,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        ).then((value) {
+                                          Navigator.of(context).pop();
+                                        });
                                       },
                                     ),
                                   ],
-                                )).then((value) {
-                          Fluttertoast.showToast(
-                            msg: "Sessão finalizada com sucesso!",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 2,
-                            backgroundColor: Colors.black54,
-                            textColor: Colors.white,
-                            fontSize: 16.0,
-                          ).then((value) {
-                            Navigator.of(context).pop();
-                          });
-                        });
+                                ));
                       },
                       disabledColor: Colors.orange.withAlpha(100),
                       child: Text(
