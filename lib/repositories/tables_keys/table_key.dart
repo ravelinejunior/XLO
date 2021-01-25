@@ -31,3 +31,9 @@ const keyAdCategory = 'category';
 const keyAdOwner = 'owner';
 const keyAdCreatedAt = 'createdAt';
 const keyAdViews = 'views';
+
+//tabela favoritos
+const String keyFavoritesTable = 'Favorites';
+const String keyFavoritesId = 'objectId';
+const String keyFavoritesAd = 'ad';
+const String keyFavoritesOwner = 'owner';

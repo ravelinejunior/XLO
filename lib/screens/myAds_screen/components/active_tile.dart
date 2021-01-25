@@ -1,6 +1,5 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/helpers/extensions.dart';
 import 'package:olx_project_parse/screens/ad_screen/ad_screen.dart';

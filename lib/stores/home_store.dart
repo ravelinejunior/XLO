@@ -1,17 +1,21 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/models/category.dart';
 import 'package:olx_project_parse/repositories/ad_repository/ad_repository.dart';
 
+import 'connectivity_store.dart';
 import 'filter_store.dart';
 part 'home_store.g.dart';
 
 class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
+  final ConnectivityStore connectivityStore = GetIt.I<ConnectivityStore>();
   //os campos passados como parametro sao todos observables entao todas as vezes que houver alteração, o autorun é chamado
   _HomeStore() {
     autorun((_) async {
+      connectivityStore.connected;
       try {
         setLoading(true);
         final newAds = await AdRepository().getHomeAdList(

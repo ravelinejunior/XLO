@@ -1,18 +1,24 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/models/ad.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/description_panel.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/main_panel.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/sold_panel.dart';
 import 'package:olx_project_parse/screens/ad_screen/components/waiting_panel.dart';
+import 'package:olx_project_parse/stores/favorite_store.dart';
 
 import 'components/ad_owner_panel.dart';
 import 'components/bottom_bar.dart';
 import 'components/location_panel.dart';
 
 class AdScreen extends StatelessWidget {
-  const AdScreen(this.ad);
+  AdScreen(this.ad);
   final Ad ad;
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
+  final FavoriteStore favoriteStore = GetIt.I<FavoriteStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +26,19 @@ class AdScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Anúncio'),
         centerTitle: true,
+        actions: [
+          if (ad.status != AdStatus.DELETED && userManagerStore.isLoggedIn)
+            Observer(builder: (_) {
+              return IconButton(
+                icon: Icon(
+                  favoriteStore.favoriteList.any((a) => a.id == ad.id)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                ),
+                onPressed: () => favoriteStore.toggleFavorite(ad),
+              );
+            })
+        ],
       ),
       body: Stack(
         children: [

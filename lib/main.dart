@@ -6,6 +6,8 @@ import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart'
 import 'package:olx_project_parse/screens/base_screen/base_screen.dart';
 
 import 'package:olx_project_parse/stores/category_store.dart';
+import 'package:olx_project_parse/stores/connectivity_store.dart';
+import 'package:olx_project_parse/stores/favorite_store.dart';
 import 'package:olx_project_parse/stores/home_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
@@ -19,10 +21,12 @@ void main() async {
 
 //acessar managers de qualquer lugar do app
 void setUpLocatores() {
+  GetIt.I.registerSingleton(ConnectivityStore());
   GetIt.I.registerSingleton(PageStore());
   GetIt.I.registerSingleton(HomeStore());
   GetIt.I.registerSingleton(UserManagerStore());
   GetIt.I.registerSingleton(CategoryStore());
+  GetIt.I.registerSingleton(FavoriteStore());
 }
 
 //inicializar parse

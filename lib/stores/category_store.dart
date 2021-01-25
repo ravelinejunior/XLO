@@ -1,6 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/models/category.dart';
 import 'package:olx_project_parse/repositories/repo_category/category_repository.dart';
+
+import 'connectivity_store.dart';
 part 'category_store.g.dart';
 
 class CategoryStore = _CategoryStore with _$CategoryStore;
@@ -8,8 +11,13 @@ class CategoryStore = _CategoryStore with _$CategoryStore;
 abstract class _CategoryStore with Store {
   ObservableList<Category> categoryList = ObservableList<Category>();
 
+  final ConnectivityStore connectivityStore = GetIt.I<ConnectivityStore>();
+
   _CategoryStore() {
-    _loadCategories();
+    autorun((_) {
+      if (connectivityStore.connected && categoryList.isEmpty)
+        _loadCategories();
+    });
   }
 
   //carrega todas as categorias assim que abre o app
