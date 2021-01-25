@@ -101,7 +101,7 @@ class _CreateScreenState extends State<CreateScreen> {
                               isDense: true,
                             ),
                             maxLengthEnforced: true,
-                            maxLength: 30,
+                            maxLength: 45,
                             onChanged: createStore.setTitle,
                             keyboardType: TextInputType.text,
                           );

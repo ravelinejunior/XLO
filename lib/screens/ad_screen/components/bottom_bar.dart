@@ -11,7 +11,7 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String message =
-        'Olá ${ad.user.name}. Vi seu anúncio no Mari´Cakes e gostei de *${ad.title}* e gostaria de fazer uma oferta inicial de *${ad.price.formattedMoney()}*!';
+        'Olá ${ad.user.name}. Vi seu anúncio no Mari´Cakes e gostei de *${ad.title} e gostaria de fazer uma oferta inicial de ${ad.price.formattedMoney()}*!';
 
     if (ad.status == AdStatus.ACTIVE)
       return Positioned(

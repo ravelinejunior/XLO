@@ -2,11 +2,16 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_it/get_it.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/stores/edit_account_store.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class EditAccountScreen extends StatelessWidget {
   final EditAccountStore editAccountStore = EditAccountStore();
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,19 +35,29 @@ class EditAccountScreen extends StatelessWidget {
                 children: [
                   LayoutBuilder(
                     builder: (_, constraints) {
-                      return ToggleSwitch(
-                        minWidth: constraints.biggest.width / 2.009,
-                        initialLabelIndex: 0,
-                        minHeight: 60,
-                        cornerRadius: 24.0,
-                        activeFgColor: Colors.white,
-                        inactiveBgColor: Colors.grey,
-                        inactiveFgColor: Colors.white,
-                        labels: ['Particular', 'Profissional'],
-                        icons: [Icons.person, Icons.shop],
-                        activeBgColors: [Colors.purple, Colors.pink],
-                        onToggle: editAccountStore.setUserType,
-                      );
+                      return Observer(builder: (_) {
+                        return IgnorePointer(
+                          ignoring: editAccountStore.loading,
+                          child: ToggleSwitch(
+                            minWidth: constraints.biggest.width / 2.009,
+                            initialLabelIndex: 0,
+                            minHeight: 60,
+                            cornerRadius: 24.0,
+                            activeFgColor: Colors.white,
+                            inactiveBgColor: Colors.grey,
+                            inactiveFgColor: Colors.white,
+                            labels: ['Particular', 'Profissional'],
+                            icons: [Icons.person, Icons.shop],
+                            activeBgColors: !editAccountStore.loading
+                                ? [Colors.purple, Colors.pink]
+                                : [
+                                    Colors.purple.withAlpha(100),
+                                    Colors.pink.withAlpha(100)
+                                  ],
+                            onToggle: editAccountStore.setUserType,
+                          ),
+                        );
+                      });
                     },
                   ),
                   const SizedBox(height: 16),
@@ -50,7 +65,7 @@ class EditAccountScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
-                          initialValue: editAccountStore.name ?? null,
+                          initialValue: editAccountStore.name,
                           decoration: InputDecoration(
                             alignLabelWithHint: true,
                             border: OutlineInputBorder(
@@ -58,6 +73,7 @@ class EditAccountScreen extends StatelessWidget {
                             ),
                             contentPadding: const EdgeInsets.all(16),
                             labelText: "Nome",
+                            enabled: !editAccountStore.loading,
                             labelStyle: TextStyle(
                               color: Colors.black.withAlpha(100),
                             ),
@@ -68,7 +84,7 @@ class EditAccountScreen extends StatelessWidget {
                           ),
                           onChanged: editAccountStore.setName,
                           maxLengthEnforced: true,
-                          maxLength: 30,
+                          maxLength: 40,
                           keyboardType: TextInputType.text);
                     },
                   ),
@@ -80,6 +96,7 @@ class EditAccountScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           errorText: editAccountStore.phoneError,
                           isDense: true,
+                          enabled: !editAccountStore.loading,
                           alignLabelWithHint: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
@@ -111,10 +128,11 @@ class EditAccountScreen extends StatelessWidget {
                   Observer(
                     builder: (_) {
                       return TextFormField(
-                        initialValue: editAccountStore.password ?? null,
+                        initialValue: editAccountStore.password,
                         decoration: InputDecoration(
                             alignLabelWithHint: true,
                             isDense: true,
+                            enabled: !editAccountStore.loading,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
@@ -139,9 +157,10 @@ class EditAccountScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   Observer(builder: (_) {
                     return TextFormField(
-                      initialValue: editAccountStore.confirmPass ?? null,
+                      initialValue: editAccountStore.confirmPass,
                       decoration: InputDecoration(
                         alignLabelWithHint: true,
+                        enabled: !editAccountStore.loading,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -165,21 +184,85 @@ class EditAccountScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   //botao salvar
                   Observer(builder: (_) {
-                    return Container(
-                      height: 55,
-                      child: RaisedButton(
-                        splashColor: Colors.red,
-                        onPressed: editAccountStore.editButtonPressed,
-                        disabledColor: Colors.grey.withAlpha(100),
-                        child: Text(
-                          'Salvar',
-                          style: TextStyle(fontSize: 18),
+                    if (!editAccountStore.loading)
+                      return Container(
+                        height: 55,
+                        child: RaisedButton(
+                          splashColor: Colors.red,
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                      title: const Text('Atualizar perfil'),
+                                      content:
+                                          Text('Deseja atualizar seus dados?'),
+                                      clipBehavior: Clip.antiAlias,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32)),
+                                      elevation: 10,
+                                      actions: [
+                                        FlatButton.icon(
+                                          icon: Icon(
+                                            Icons.cancel,
+                                            color: Colors.red[800],
+                                          ),
+                                          textColor: Colors.red[800],
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          label: Text('Cancelar'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        FlatButton.icon(
+                                          icon: Icon(
+                                            Icons.update,
+                                            color: Colors.green,
+                                          ),
+                                          textColor: Colors.green,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          label: Text('Confirmar'),
+                                          onPressed: () {
+                                            editAccountStore
+                                                .editPressedButton();
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    )).then((value) {
+                              Fluttertoast.showToast(
+                                msg: "Dados atualizados com sucesso!",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 2,
+                                backgroundColor: Colors.black54,
+                                textColor: Colors.white,
+                                fontSize: 16.0,
+                              ).then((value) {
+                                Navigator.of(context).pop();
+                              });
+                            });
+                          },
+                          disabledColor: Colors.grey.withAlpha(100),
+                          child: Text(
+                            'Salvar',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          color: Colors.orange[600],
+                          shape: StadiumBorder(),
+                          textColor: Colors.white,
                         ),
-                        color: Colors.orange[600],
-                        shape: StadiumBorder(),
-                        textColor: Colors.white,
-                      ),
-                    );
+                      );
+                    else
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.purple),
+                          strokeWidth: 6,
+                        ),
+                      );
                   }),
                   const SizedBox(height: 16),
                   //botao sair
@@ -187,7 +270,60 @@ class EditAccountScreen extends StatelessWidget {
                     height: 55,
                     child: RaisedButton(
                       splashColor: Colors.orange.withAlpha(200),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                                  title: const Text('Finalizar sessão'),
+                                  content: Text('Deseja finalizar sua sessão?'),
+                                  clipBehavior: Clip.antiAlias,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(32)),
+                                  elevation: 10,
+                                  actions: [
+                                    FlatButton.icon(
+                                      icon: Icon(
+                                        Icons.cancel,
+                                        color: Colors.blue[800],
+                                      ),
+                                      textColor: Colors.blue[800],
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      label: Text('Cancelar'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    FlatButton.icon(
+                                      icon: Icon(
+                                        Icons.supervised_user_circle,
+                                        color: Colors.red,
+                                      ),
+                                      textColor: Colors.red,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      label: Text('Confirmar'),
+                                      onPressed: () {
+                                        userManagerStore.userLogout();
+                                        Navigator.of(context).pop();
+                                        GetIt.I<PageStore>().setPage(0);
+                                      },
+                                    ),
+                                  ],
+                                )).then((value) {
+                          Fluttertoast.showToast(
+                            msg: "Sessão finalizada com sucesso!",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 2,
+                            backgroundColor: Colors.black54,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          ).then((value) {
+                            Navigator.of(context).pop();
+                          });
+                        });
+                      },
                       disabledColor: Colors.orange.withAlpha(100),
                       child: Text(
                         'Sair',

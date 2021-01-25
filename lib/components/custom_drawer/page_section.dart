@@ -97,20 +97,22 @@ class PageSection extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-        PageTile(
-          label: "IA Machine Learning Kit",
-          iconData: Icons.contact_mail,
-          onTap: () {
-            pageStore.setPage(5);
-          },
-          highlighted: pageStore.page == 5,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Divider(
-            color: Colors.grey,
+        if (userManagerStore.isLoggedIn)
+          PageTile(
+            label: "IA Machine Learning Kit",
+            iconData: Icons.contact_mail,
+            onTap: () {
+              pageStore.setPage(5);
+            },
+            highlighted: pageStore.page == 5,
           ),
-        ),
+        if (userManagerStore.isLoggedIn)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Divider(
+              color: Colors.grey,
+            ),
+          ),
       ],
     );
   }

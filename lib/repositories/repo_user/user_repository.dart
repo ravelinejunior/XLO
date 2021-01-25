@@ -63,4 +63,37 @@ class UserRepository {
       createdAt: parseUser.get(keyUserCreatedAt),
     );
   }
+
+  Future<void> updateUser(User user) async {
+    //get the current parse user
+    final ParseUser parseUser = await ParseUser.currentUser();
+    if (parseUser != null) {
+      //update user data
+      parseUser.set<String>(keyUserName, user.name);
+      parseUser.set<String>(keyUserPhone, user.phone);
+      parseUser.set<int>(keyUserType, user.userType.index);
+
+      //verify the password
+      if (user.password != null) {
+        parseUser.password = parseUser.password;
+      }
+
+      final response = await parseUser.save();
+
+      if (!response.success) {
+        return Future.error(ParseErrors.getDescription(response.error.code));
+      }
+
+      //parse server desconnect the user, so loggin again
+      if (user.password != null) {
+        await parseUser.logout();
+        final loginResponse =
+            await ParseUser(user.email, user.password, user.email).login();
+
+        if (!loginResponse.success) {
+          return Future.error(ParseErrors.getDescription(response.error.code));
+        }
+      }
+    }
+  }
 }

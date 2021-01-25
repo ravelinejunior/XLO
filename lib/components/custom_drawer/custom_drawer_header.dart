@@ -87,7 +87,10 @@ class CustomDrawerHeader extends StatelessWidget {
                         child: RaisedButton(
                           elevation: 10,
                           splashColor: Colors.pink[300],
-                          onPressed: () {},
+                          onPressed: () {
+                            userManagerStore.userLogout();
+                            Navigator.of(context).pop();
+                          },
                           child: Text(
                             'Logout',
                             style: TextStyle(fontSize: 12),

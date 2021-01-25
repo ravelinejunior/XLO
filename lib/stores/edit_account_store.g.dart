@@ -44,12 +44,12 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
       (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
               name: '_EditAccountStore.isFormValid'))
           .value;
-  Computed<Function> _$editButtonPressedComputed;
+  Computed<VoidCallback> _$editPressedButtonComputed;
 
   @override
-  Function get editButtonPressed => (_$editButtonPressedComputed ??=
-          Computed<Function>(() => super.editButtonPressed,
-              name: '_EditAccountStore.editButtonPressed'))
+  VoidCallback get editPressedButton => (_$editPressedButtonComputed ??=
+          Computed<VoidCallback>(() => super.editPressedButton,
+              name: '_EditAccountStore.editPressedButton'))
       .value;
 
   final _$userTypeAtom = Atom(name: '_EditAccountStore.userType');
@@ -127,6 +127,44 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
     });
   }
 
+  final _$loadingAtom = Atom(name: '_EditAccountStore.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
+  final _$successfulAtom = Atom(name: '_EditAccountStore.successful');
+
+  @override
+  bool get successful {
+    _$successfulAtom.reportRead();
+    return super.successful;
+  }
+
+  @override
+  set successful(bool value) {
+    _$successfulAtom.reportWrite(value, super.successful, () {
+      super.successful = value;
+    });
+  }
+
+  final _$_updateUserDataAsyncAction =
+      AsyncAction('_EditAccountStore._updateUserData');
+
+  @override
+  Future<void> _updateUserData() {
+    return _$_updateUserDataAsyncAction.run(() => super._updateUserData());
+  }
+
   final _$_EditAccountStoreActionController =
       ActionController(name: '_EditAccountStore');
 
@@ -193,12 +231,14 @@ name: ${name},
 phone: ${phone},
 password: ${password},
 confirmPass: ${confirmPass},
+loading: ${loading},
+successful: ${successful},
 nameValid: ${nameValid},
 phoneValid: ${phoneValid},
 passwordValid: ${passwordValid},
 confirmPassValid: ${confirmPassValid},
 isFormValid: ${isFormValid},
-editButtonPressed: ${editButtonPressed}
+editPressedButton: ${editPressedButton}
     ''';
   }
 }

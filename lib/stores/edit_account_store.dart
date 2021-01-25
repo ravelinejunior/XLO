@@ -1,10 +1,23 @@
+import 'package:flutter/cupertino.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
 import 'package:olx_project_parse/models/user.dart';
+import 'package:olx_project_parse/repositories/repo_user/user_repository.dart';
 part 'edit_account_store.g.dart';
 
 class EditAccountStore = _EditAccountStore with _$EditAccountStore;
 
 abstract class _EditAccountStore with Store {
+  _EditAccountStore() {
+    user = userManagerStore.user;
+    userType = user.userType;
+    name = user.name;
+    phone = user.phone;
+  }
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
+  User user;
+
   @observable
   UserType userType;
 
@@ -48,7 +61,7 @@ abstract class _EditAccountStore with Store {
   }
 
   @observable
-  String password;
+  String password = '';
 
   @action
   setPassword(String value) => password = value;
@@ -56,17 +69,15 @@ abstract class _EditAccountStore with Store {
   @computed
   bool get passwordValid => password != null && password.length >= 6;
   String get passwordError {
-    if (password == null || passwordValid) {
+    if (password == null || passwordValid || password.isEmpty) {
       return null;
-    } else if (password.isEmpty) {
-      return "Campo obrigatório!";
     } else {
       return "Mínimo de 6 caracters";
     }
   }
 
   @observable
-  String confirmPass;
+  String confirmPass = '';
 
   @action
   setConfirmPass(String value) => confirmPass = value;
@@ -74,20 +85,53 @@ abstract class _EditAccountStore with Store {
   @computed
   bool get confirmPassValid => confirmPass != null && confirmPass == password;
   String get passwordCopyError {
-    if (confirmPass == null || confirmPassValid) {
+    if ((confirmPass == null || confirmPassValid) && passwordValid) {
       return null;
-    } else if (confirmPass.isEmpty) {
-      return "Campo obrigatório!";
+    } else if (confirmPass.isEmpty && password.isNotEmpty) {
+      return "Senhas não coicidem!";
+    } else if (password.isEmpty && confirmPass.isEmpty) {
+      return null;
     } else {
-      return "Senhas não coicidem.";
+      return "Senhas não coicidem!";
     }
   }
 
   @computed
-  bool get isFormValid =>
-      nameValid & passwordValid & confirmPassValid & phoneValid;
+  bool get isFormValid => nameValid & confirmPassValid & phoneValid && !loading;
 
   //verificação de estado
   @computed
-  Function get editButtonPressed => isFormValid ? () {} : null;
+  VoidCallback get editPressedButton => isFormValid ? _updateUserData : null;
+
+  @observable
+  bool loading = false;
+
+  @observable
+  bool successful = false;
+
+  @action
+  Future<void> _updateUserData() async {
+    loading = true;
+    user.name = name;
+    user.phone = phone;
+    user.userType = userType;
+
+    if (password.isNotEmpty) {
+      user.password = password;
+    } else {
+      user.password = null;
+    }
+    try {
+      await UserRepository().updateUser(user);
+      userManagerStore.setUser(user);
+      successful = true;
+    } catch (e) {
+      print(e);
+    }
+
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      loading = false;
+      successful = false;
+    });
+  }
 }

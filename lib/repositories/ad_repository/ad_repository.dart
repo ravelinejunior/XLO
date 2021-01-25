@@ -83,12 +83,8 @@ class AdRepository {
     }
   }
 
-  Future<List<Ad>> getHomeAdList({
-    FilterStore filter,
-    String search,
-    Category category,
-    int page,
-  }) async {
+  Future<List<Ad>> getHomeAdList(
+      {FilterStore filter, String search, Category category, int page}) async {
     //creating a query builder
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
 

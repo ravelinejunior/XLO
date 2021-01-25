@@ -27,7 +27,9 @@ abstract class _UserManagerStore with Store {
     setUser(user);
   }
 
-  Future<void> userLogout(ParseUser parseUser) async {
+  @action
+  Future<void> userLogout() async {
+    final ParseUser parseUser = await ParseUser.currentUser();
     if (parseUser != null) {
       await parseUser.logout();
       GetIt.I<UserManagerStore>().setUser(null);
