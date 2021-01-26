@@ -6,7 +6,7 @@ import 'package:olx_project_parse/models/address.dart';
 import 'package:olx_project_parse/models/category.dart';
 import 'package:olx_project_parse/repositories/ad_repository/ad_repository.dart';
 import 'package:olx_project_parse/stores/cep_store.dart';
-import 'package:olx_project_parse/helpers/extensions.dart';
+
 part 'create_store.g.dart';
 
 class CreateStore = _CreateStore with _$CreateStore;

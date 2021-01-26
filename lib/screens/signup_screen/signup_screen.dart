@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
-import 'package:olx_project_parse/screens/home_screen/home_screen.dart';
+
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:olx_project_parse/stores/signup_store.dart';

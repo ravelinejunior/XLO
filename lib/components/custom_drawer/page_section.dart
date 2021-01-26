@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/custom_drawer/page_tile.dart';
 import 'package:olx_project_parse/managers/user_manager/user_manager_store.dart';
-import 'package:olx_project_parse/screens/favorite_screen/favorite_screen.dart';
+
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
-import 'package:olx_project_parse/screens/signup_screen/signup_screen.dart';
+
 import 'package:olx_project_parse/stores/page_store.dart';
 
 class PageSection extends StatelessWidget {

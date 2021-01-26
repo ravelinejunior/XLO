@@ -26,7 +26,7 @@ class _OfflineScreenState extends State<OfflineScreen> {
       onWillPop: () => Future.value(false),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('XLO'),
+          title: Text('Mary Cakes'),
           centerTitle: true,
           automaticallyImplyLeading: false,
         ),

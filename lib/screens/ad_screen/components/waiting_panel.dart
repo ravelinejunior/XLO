@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:olx_project_parse/models/ad.dart';
-import 'package:olx_project_parse/helpers/extensions.dart';
 
 class WaitingPanel extends StatelessWidget {
   const WaitingPanel(this.ad);
