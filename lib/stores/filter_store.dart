@@ -17,7 +17,7 @@ abstract class _FilterStore with Store {
     this.orderBy = OrderBy.DATE,
     this.minPrice,
     this.maxPrice,
-    this.vendorType = VENDOR_TYPE_PARTICULAR,
+    this.vendorType = 3,
   });
 
   @observable
