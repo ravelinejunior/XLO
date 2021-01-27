@@ -75,6 +75,7 @@ class AdScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     MainPanel(ad),
                     Divider(color: Colors.grey[500]),

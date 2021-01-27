@@ -43,7 +43,7 @@ class _CreateScreenState extends State<CreateScreen> {
       else {
         GetIt.I<PageStore>().setPage(0);
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MyAdsScreen(initialPage: 1),
+          builder: (context) => MyAdsScreen(initialPage: 0),
         ));
       }
     });

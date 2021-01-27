@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:olx_project_parse/components/errors/empty_screen.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/stores/myads_store.dart';
 
@@ -54,16 +55,13 @@ class _MyAdsScreenState extends State<MyAdsScreen>
                 ),
               );
             if (myAdsStore.activeAds.isEmpty)
-              return ErrorBox(
-                message: "Não há nenhum produto ativo.",
-              );
-            else
-              return ListView.builder(
-                itemBuilder: (_, index) {
-                  return ActiveTile(myAdsStore.activeAds[index], myAdsStore);
-                },
-                itemCount: myAdsStore.activeAds.length,
-              );
+              return EmptyCard("Não há nenhum produto ativo.");
+            return ListView.builder(
+              itemBuilder: (_, index) {
+                return ActiveTile(myAdsStore.activeAds[index], myAdsStore);
+              },
+              itemCount: myAdsStore.activeAds.length,
+            );
           }),
           Observer(builder: (_) {
             if (myAdsStore.loading)
@@ -74,9 +72,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
                 ),
               );
             if (myAdsStore.pendingAds.isEmpty)
-              return ErrorBox(
-                message: "Não há nenhum produto pendente.",
-              );
+              return EmptyCard("Não há nenhum produto pendente.");
             else
               return ListView.builder(
                 itemBuilder: (_, index) {
@@ -94,9 +90,7 @@ class _MyAdsScreenState extends State<MyAdsScreen>
                 ),
               );
             if (myAdsStore.soldAds.isEmpty)
-              return ErrorBox(
-                message: "Não há nenhum produto vendido.",
-              );
+              return EmptyCard("Não há nenhum produto vendido.");
             else
               return ListView.builder(
                 itemBuilder: (_, index) {

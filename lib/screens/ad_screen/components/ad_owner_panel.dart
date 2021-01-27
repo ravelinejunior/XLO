@@ -8,7 +8,7 @@ class AdOwnerPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 18),
@@ -20,9 +20,10 @@ class AdOwnerPanel extends StatelessWidget {
         const SizedBox(height: 16),
         Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(16),
               color: Colors.blueGrey[200]),
           padding: const EdgeInsets.all(16),
+          alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30,6 +31,7 @@ class AdOwnerPanel extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 18),
                 child: Text(
                   ad.user.name,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

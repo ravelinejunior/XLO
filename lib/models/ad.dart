@@ -43,7 +43,7 @@ class Ad {
   Address address;
   num price;
   bool hidePhone = false;
-  AdStatus status = AdStatus.PENDING;
+  AdStatus status = AdStatus.ACTIVE;
   DateTime dateCreated;
   User user;
   int views;
