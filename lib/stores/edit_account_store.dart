@@ -83,7 +83,8 @@ abstract class _EditAccountStore with Store {
   setConfirmPass(String value) => confirmPass = value;
 
   @computed
-  bool get confirmPassValid => confirmPass != null && confirmPass == password;
+  bool get confirmPassValid =>
+      confirmPass != null && confirmPass == password && password.isNotEmpty;
   String get passwordCopyError {
     if ((confirmPass == null || confirmPassValid) && passwordValid) {
       return null;

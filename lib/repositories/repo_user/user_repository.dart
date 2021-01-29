@@ -75,7 +75,7 @@ class UserRepository {
 
       //verify the password
       if (user.password != null) {
-        parseUser.password = parseUser.password;
+        parseUser.password = user.password;
       }
 
       final response = await parseUser.save();
