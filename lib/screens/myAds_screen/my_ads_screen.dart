@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/errors/empty_screen.dart';
-import 'package:olx_project_parse/components/errors/error_box.dart';
 import 'package:olx_project_parse/stores/myads_store.dart';
+import 'package:olx_project_parse/stores/page_store.dart';
 
 import 'components/active_tile.dart';
 import 'components/pending_tile.dart';
@@ -30,76 +31,83 @@ class _MyAdsScreenState extends State<MyAdsScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Meus Anúncios'),
-        centerTitle: true,
-        bottom: TabBar(
+    return WillPopScope(
+      onWillPop: () {
+        GetIt.I<PageStore>().setPage(0);
+
+        return;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Meus Anúncios'),
+          centerTitle: true,
+          bottom: TabBar(
+            controller: tabController,
+            tabs: [
+              Tab(child: Text('ATIVOS')),
+              Tab(child: Text('PENDENTES')),
+              Tab(child: Text('VENDIDOS')),
+            ],
+          ),
+        ),
+        body: TabBarView(
           controller: tabController,
-          tabs: [
-            Tab(child: Text('ATIVOS')),
-            Tab(child: Text('PENDENTES')),
-            Tab(child: Text('VENDIDOS')),
+          children: [
+            Observer(builder: (_) {
+              if (myAdsStore.loading)
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                    strokeWidth: 4,
+                  ),
+                );
+              if (myAdsStore.activeAds.isEmpty)
+                return EmptyCard("Não há nenhum produto ativo.");
+              return ListView.builder(
+                itemBuilder: (_, index) {
+                  return ActiveTile(myAdsStore.activeAds[index], myAdsStore);
+                },
+                itemCount: myAdsStore.activeAds.length,
+              );
+            }),
+            Observer(builder: (_) {
+              if (myAdsStore.loading)
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                    strokeWidth: 4,
+                  ),
+                );
+              if (myAdsStore.pendingAds.isEmpty)
+                return EmptyCard("Não há nenhum produto pendente.");
+              else
+                return ListView.builder(
+                  itemBuilder: (_, index) {
+                    return PendingTile(myAdsStore.pendingAds[index]);
+                  },
+                  itemCount: myAdsStore.pendingAds.length,
+                );
+            }),
+            Observer(builder: (_) {
+              if (myAdsStore.loading)
+                return Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.white),
+                    strokeWidth: 4,
+                  ),
+                );
+              if (myAdsStore.soldAds.isEmpty)
+                return EmptyCard("Não há nenhum produto vendido.");
+              else
+                return ListView.builder(
+                  itemBuilder: (_, index) {
+                    return SoldTile(myAdsStore.soldAds[index], myAdsStore);
+                  },
+                  itemCount: myAdsStore.soldAds.length,
+                );
+            }),
           ],
         ),
-      ),
-      body: TabBarView(
-        controller: tabController,
-        children: [
-          Observer(builder: (_) {
-            if (myAdsStore.loading)
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                  strokeWidth: 4,
-                ),
-              );
-            if (myAdsStore.activeAds.isEmpty)
-              return EmptyCard("Não há nenhum produto ativo.");
-            return ListView.builder(
-              itemBuilder: (_, index) {
-                return ActiveTile(myAdsStore.activeAds[index], myAdsStore);
-              },
-              itemCount: myAdsStore.activeAds.length,
-            );
-          }),
-          Observer(builder: (_) {
-            if (myAdsStore.loading)
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                  strokeWidth: 4,
-                ),
-              );
-            if (myAdsStore.pendingAds.isEmpty)
-              return EmptyCard("Não há nenhum produto pendente.");
-            else
-              return ListView.builder(
-                itemBuilder: (_, index) {
-                  return PendingTile(myAdsStore.pendingAds[index]);
-                },
-                itemCount: myAdsStore.pendingAds.length,
-              );
-          }),
-          Observer(builder: (_) {
-            if (myAdsStore.loading)
-              return Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                  strokeWidth: 4,
-                ),
-              );
-            if (myAdsStore.soldAds.isEmpty)
-              return EmptyCard("Não há nenhum produto vendido.");
-            else
-              return ListView.builder(
-                itemBuilder: (_, index) {
-                  return SoldTile(myAdsStore.soldAds[index], myAdsStore);
-                },
-                itemCount: myAdsStore.soldAds.length,
-              );
-          }),
-        ],
       ),
     );
   }

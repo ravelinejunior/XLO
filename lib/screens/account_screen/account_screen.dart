@@ -12,25 +12,31 @@ class AccountScreen extends StatelessWidget {
   final userManager = GetIt.I<UserManagerStore>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Minha Conta'),
-        centerTitle: true,
+    return WillPopScope(
+      onWillPop: () {
+        GetIt.I<PageStore>().setPage(0);
+        return;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Minha Conta'),
+          centerTitle: true,
+        ),
+        drawer: CustomDrawer(),
+        body: Observer(builder: (_) {
+          return Center(
+            child: Card(
+                margin: const EdgeInsets.all(16),
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: userManager.isLoggedIn
+                    ? setColumn(context)
+                    : setGetPage(context)),
+          );
+        }),
       ),
-      drawer: CustomDrawer(),
-      body: Observer(builder: (_) {
-        return Center(
-          child: Card(
-              margin: const EdgeInsets.all(16),
-              elevation: 10,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: userManager.isLoggedIn
-                  ? setColumn(context)
-                  : setGetPage(context)),
-        );
-      }),
     );
   }
 
