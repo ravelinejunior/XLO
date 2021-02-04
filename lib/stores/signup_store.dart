@@ -10,6 +10,18 @@ part 'signup_store.g.dart';
 class SignupStore = _SignupStoreBase with _$SignupStore;
 
 abstract class _SignupStoreBase with Store {
+  @observable
+  bool showPass = false;
+
+  @action
+  void setShowPass(bool value) => showPass = value;
+
+  @observable
+  bool showPassConfirm = false;
+
+  @action
+  void setShowPassConfirm(bool value) => showPassConfirm = value;
+
   //name
   @observable
   String name;

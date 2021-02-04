@@ -193,9 +193,22 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                                 prefixIcon: Icon(Icons.all_inclusive),
                                 errorText: signupStore.passwordError,
+                                suffixIcon: InkWell(
+                                  onTap: () {
+                                    signupStore
+                                        .setShowPass(!signupStore.showPass);
+                                  },
+                                  child: !signupStore.showPass
+                                      ? Icon(Icons.visibility,
+                                          color: Colors.purple)
+                                      : Icon(
+                                          Icons.visibility_off,
+                                          color: Colors.purple.withAlpha(150),
+                                        ),
+                                ),
                               ),
                               onChanged: signupStore.setPassword,
-                              obscureText: true,
+                              obscureText: !signupStore.showPass,
                               keyboardType: TextInputType.text,
                               onEditingComplete: () =>
                                   focusNode5.requestFocus(),
@@ -223,10 +236,23 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               prefixIcon: Icon(Icons.all_inclusive),
                               errorText: signupStore.passwordCopyError,
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  signupStore.setShowPassConfirm(
+                                      !signupStore.showPassConfirm);
+                                },
+                                child: !signupStore.showPassConfirm
+                                    ? Icon(Icons.visibility,
+                                        color: Colors.purple)
+                                    : Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.purple.withAlpha(150),
+                                      ),
+                              ),
                             ),
                             onChanged: signupStore.setPasswordCopy,
                             textInputAction: TextInputAction.done,
-                            obscureText: true,
+                            obscureText: !signupStore.showPassConfirm,
                             onFieldSubmitted: (value) => focusNode5.unfocus(),
                           );
                         }),

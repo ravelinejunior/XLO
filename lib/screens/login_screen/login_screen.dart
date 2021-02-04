@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //login
                     Observer(
                       builder: (_) {
-                        return TextFormField(
+                        return TextField(
                           focusNode: focusNode1,
                           enabled: !loginStore.loading,
                           smartDashesType: SmartDashesType.enabled,
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     Observer(
                       builder: (_) {
-                        return TextFormField(
+                        return TextField(
                           focusNode: focusNode2,
                           enabled: !loginStore.loading,
                           smartDashesType: SmartDashesType.enabled,
@@ -169,11 +169,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: Colors.black.withAlpha(100),
                             ),
                             prefixIcon: Icon(Icons.offline_bolt),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                loginStore.setShowPass(!loginStore.showPass);
+                              },
+                              child: !loginStore.showPass
+                                  ? Icon(Icons.visibility, color: Colors.purple)
+                                  : Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.purple.withAlpha(150),
+                                    ),
+                            ),
                           ),
-                          obscureText: true,
+                          obscureText: !loginStore.showPass,
                           keyboardType: TextInputType.text,
                           onChanged: loginStore.setPassword,
-                          onFieldSubmitted: (value) => focusNode3.requestFocus,
+                          onSubmitted: (value) => focusNode3.requestFocus,
                         );
                       },
                     ),

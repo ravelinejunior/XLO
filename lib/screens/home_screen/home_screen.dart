@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeStore homeStore = GetIt.I<HomeStore>();
-
+  bool finishApp = true;
   final ScrollController scrollController = ScrollController();
 
   openSearch(BuildContext context) async {
@@ -33,7 +33,50 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        await showDialog(
+          context: context,
+          child: AlertDialog(
+            title: Text('Sair'),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            content: Text('Encontrou o que procurava?\nDeseja sair do app?'),
+            buttonPadding: const EdgeInsets.all(8),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+            actions: [
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                color: Colors.lightBlue,
+                icon: Icon(
+                  Icons.close_sharp,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  finishApp = false;
+                },
+                label: Text(
+                  'Não',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(width: 8),
+              RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+                color: Colors.red,
+                icon: Icon(Icons.exit_to_app),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  finishApp = true;
+                },
+                label: Text('Sim'),
+              ),
+            ],
+          ),
+        );
+        return finishApp;
       },
       child: SafeArea(
         top: false,

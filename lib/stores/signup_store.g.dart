@@ -59,6 +59,36 @@ mixin _$SignupStore on _SignupStoreBase, Store {
               name: '_SignupStoreBase.signupButtonPressed'))
       .value;
 
+  final _$showPassAtom = Atom(name: '_SignupStoreBase.showPass');
+
+  @override
+  bool get showPass {
+    _$showPassAtom.reportRead();
+    return super.showPass;
+  }
+
+  @override
+  set showPass(bool value) {
+    _$showPassAtom.reportWrite(value, super.showPass, () {
+      super.showPass = value;
+    });
+  }
+
+  final _$showPassConfirmAtom = Atom(name: '_SignupStoreBase.showPassConfirm');
+
+  @override
+  bool get showPassConfirm {
+    _$showPassConfirmAtom.reportRead();
+    return super.showPassConfirm;
+  }
+
+  @override
+  set showPassConfirm(bool value) {
+    _$showPassConfirmAtom.reportWrite(value, super.showPassConfirm, () {
+      super.showPassConfirm = value;
+    });
+  }
+
   final _$nameAtom = Atom(name: '_SignupStoreBase.name');
 
   @override
@@ -198,6 +228,28 @@ mixin _$SignupStore on _SignupStoreBase, Store {
       ActionController(name: '_SignupStoreBase');
 
   @override
+  void setShowPass(bool value) {
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setShowPass');
+    try {
+      return super.setShowPass(value);
+    } finally {
+      _$_SignupStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setShowPassConfirm(bool value) {
+    final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
+        name: '_SignupStoreBase.setShowPassConfirm');
+    try {
+      return super.setShowPassConfirm(value);
+    } finally {
+      _$_SignupStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setName(String value) {
     final _$actionInfo = _$_SignupStoreBaseActionController.startAction(
         name: '_SignupStoreBase.setName');
@@ -288,6 +340,8 @@ mixin _$SignupStore on _SignupStoreBase, Store {
   @override
   String toString() {
     return '''
+showPass: ${showPass},
+showPassConfirm: ${showPassConfirm},
 name: ${name},
 email: ${email},
 phone: ${phone},

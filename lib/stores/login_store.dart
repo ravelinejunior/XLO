@@ -9,6 +9,12 @@ part 'login_store.g.dart';
 class LoginStore = _LoginStore with _$LoginStore;
 
 abstract class _LoginStore with Store {
+  @observable
+  bool showPass = false;
+
+  @action
+  void setShowPass(bool value) => showPass = value;
+
   //email
   @observable
   String email;

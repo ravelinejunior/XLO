@@ -35,7 +35,7 @@ class FilterScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Container(
+                  /* Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(
                         top: 8.0, bottom: 16, left: 8, right: 8),
@@ -90,7 +90,7 @@ class FilterScreen extends StatelessWidget {
                     onTap: () => focusNode2.unfocus(),
                   ),
                   const SizedBox(height: 8),
-                  Divider(),
+                  Divider(), */
                   OrderByField(filterStore),
                   const SizedBox(height: 4),
                   Divider(),

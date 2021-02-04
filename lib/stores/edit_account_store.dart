@@ -21,6 +21,18 @@ abstract class _EditAccountStore with Store {
   @observable
   UserType userType;
 
+  @observable
+  bool showPass = false;
+
+  @action
+  void setShowPass(bool value) => showPass = value;
+
+  @observable
+  bool showPassConfirm = false;
+
+  @action
+  void setShowPassConfirm(bool value) => showPassConfirm = value;
+
   @action
   setUserType(int value) => userType = UserType.values[value];
 

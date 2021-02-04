@@ -147,8 +147,20 @@ class EditAccountScreen extends StatelessWidget {
                               color: Colors.black.withAlpha(100),
                             ),
                             prefixIcon: Icon(Icons.all_inclusive),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                editAccountStore
+                                    .setShowPass(!editAccountStore.showPass);
+                              },
+                              child: !editAccountStore.showPass
+                                  ? Icon(Icons.visibility, color: Colors.purple)
+                                  : Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.purple.withAlpha(150),
+                                    ),
+                            ),
                             errorText: editAccountStore.passwordError),
-                        obscureText: true,
+                        obscureText: !editAccountStore.showPass,
                         keyboardType: TextInputType.text,
                         onChanged: editAccountStore.setPassword,
                       );
@@ -175,9 +187,21 @@ class EditAccountScreen extends StatelessWidget {
                           color: Colors.black.withAlpha(100),
                         ),
                         prefixIcon: Icon(Icons.all_inclusive),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            editAccountStore.setShowPassConfirm(
+                                !editAccountStore.showPassConfirm);
+                          },
+                          child: !editAccountStore.showPassConfirm
+                              ? Icon(Icons.visibility, color: Colors.purple)
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.purple.withAlpha(150),
+                                ),
+                        ),
                       ),
+                      obscureText: !editAccountStore.showPassConfirm,
                       textInputAction: TextInputAction.done,
-                      obscureText: true,
                       onChanged: editAccountStore.setConfirmPass,
                     );
                   }),

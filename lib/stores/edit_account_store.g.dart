@@ -67,6 +67,36 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
     });
   }
 
+  final _$showPassAtom = Atom(name: '_EditAccountStore.showPass');
+
+  @override
+  bool get showPass {
+    _$showPassAtom.reportRead();
+    return super.showPass;
+  }
+
+  @override
+  set showPass(bool value) {
+    _$showPassAtom.reportWrite(value, super.showPass, () {
+      super.showPass = value;
+    });
+  }
+
+  final _$showPassConfirmAtom = Atom(name: '_EditAccountStore.showPassConfirm');
+
+  @override
+  bool get showPassConfirm {
+    _$showPassConfirmAtom.reportRead();
+    return super.showPassConfirm;
+  }
+
+  @override
+  set showPassConfirm(bool value) {
+    _$showPassConfirmAtom.reportWrite(value, super.showPassConfirm, () {
+      super.showPassConfirm = value;
+    });
+  }
+
   final _$nameAtom = Atom(name: '_EditAccountStore.name');
 
   @override
@@ -184,6 +214,28 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
       ActionController(name: '_EditAccountStore');
 
   @override
+  void setShowPass(bool value) {
+    final _$actionInfo = _$_EditAccountStoreActionController.startAction(
+        name: '_EditAccountStore.setShowPass');
+    try {
+      return super.setShowPass(value);
+    } finally {
+      _$_EditAccountStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setShowPassConfirm(bool value) {
+    final _$actionInfo = _$_EditAccountStoreActionController.startAction(
+        name: '_EditAccountStore.setShowPassConfirm');
+    try {
+      return super.setShowPassConfirm(value);
+    } finally {
+      _$_EditAccountStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setUserType(int value) {
     final _$actionInfo = _$_EditAccountStoreActionController.startAction(
         name: '_EditAccountStore.setUserType');
@@ -242,6 +294,8 @@ mixin _$EditAccountStore on _EditAccountStore, Store {
   String toString() {
     return '''
 userType: ${userType},
+showPass: ${showPass},
+showPassConfirm: ${showPassConfirm},
 name: ${name},
 phone: ${phone},
 password: ${password},
