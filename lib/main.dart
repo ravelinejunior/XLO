@@ -66,12 +66,21 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.purple,
         appBarTheme: AppBarTheme(elevation: 0),
       ),
-      supportedLocales: const [Locale('pt', 'BR')],
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+        const Locale('en'),
+        const Locale('zh'),
+      ],
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
+        //print("change language");
+        return locale;
+      },
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
       home: BaseScreen(),

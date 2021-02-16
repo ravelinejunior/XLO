@@ -150,7 +150,9 @@ class AccountScreen extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {},
+            onTap: () {
+              GetIt.I<PageStore>().setPage(3);
+            },
           ),
         ),
       ],
