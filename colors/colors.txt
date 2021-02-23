@@ -1,0 +1,11 @@
+Laranja forte = FF7B00,EFB366 ,F4A261
+Dark Orange = FF8800 , E9C46A
+Yellow Orange = FF9500 , FFA200, FFAA00, FFB700, FFC300
+Yellow = FFEA00
+Dark Blue = 264653
+Teal = 287271,2A9D8F
+
+Laranja Avermelhado = EE8959 , E76F51
+
+
+

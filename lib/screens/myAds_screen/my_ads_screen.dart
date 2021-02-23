@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/errors/empty_screen.dart';
 import 'package:olx_project_parse/stores/myads_store.dart';
-import 'package:olx_project_parse/stores/page_store.dart';
 
 import 'components/active_tile.dart';
 import 'components/pending_tile.dart';
