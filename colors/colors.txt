@@ -1,11 +1,11 @@
-Laranja forte = FF7B00,EFB366 ,F4A261
-Dark Orange = FF8800 , E9C46A
-Yellow Orange = FF9500 , FFA200, FFAA00, FFB700, FFC300
-Yellow = FFEA00
-Dark Blue = 264653
-Teal = 287271,2A9D8F
+Laranja forte = FF7B00 = 255,123,0, = 239,179,102 ,F4A261 = 244,162,97
+Dark Orange = FF8800 = 255,136,0 , E9C46A = 233,196,106
+Yellow Orange = FF9500 = 255,149,0 , FFA200, FFAA00, FFB700, FFC300 = 255,195,0
+Yellow = FFEA00 = 255,234,0
+Dark Blue = 264653 = 38,70,83
+Teal = 287271 = 40,114,113, 2A9D8F = 42,157,143
 
-Laranja Avermelhado = EE8959 , E76F51
+Laranja Avermelhado = EE8959 = 238,137,89 , E76F51 = 231,111,81
 
 
 
