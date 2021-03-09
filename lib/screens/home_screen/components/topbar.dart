@@ -19,13 +19,13 @@ class TopBar extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey[300].withAlpha(100),
+                    color: Colors.grey[300].withAlpha(150),
                   ),
                   top: BorderSide(
-                    color: Colors.grey[300].withAlpha(100),
+                    color: Colors.grey[300].withAlpha(150),
                   ),
                   right: BorderSide(
-                    color: Colors.grey[300].withAlpha(100),
+                    color: Colors.grey[300].withAlpha(150),
                   ),
                 ),
               ),
@@ -48,16 +48,16 @@ class TopBar extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               left: BorderSide(
-                color: Colors.grey[300].withAlpha(100),
+                color: Colors.grey[300].withAlpha(150),
               ),
               bottom: BorderSide(
-                color: Colors.grey[300].withAlpha(100),
+                color: Colors.grey[300].withAlpha(150),
               ),
               top: BorderSide(
-                color: Colors.grey[300].withAlpha(100),
+                color: Colors.grey[300].withAlpha(150),
               ),
               right: BorderSide(
-                color: Colors.grey[300].withAlpha(100),
+                color: Colors.grey[300].withAlpha(150),
               ),
             ),
           ),

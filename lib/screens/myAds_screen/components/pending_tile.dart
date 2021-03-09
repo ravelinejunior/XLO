@@ -11,7 +11,7 @@ class PendingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.pinkAccent,
+      splashColor: Colors.deepOrangeAccent,
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => AdScreen(ad),
@@ -82,7 +82,7 @@ class PendingTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                                  color: Colors.black54),
                             ),
                             Divider(
                               thickness: 1,
@@ -93,7 +93,7 @@ class PendingTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white),
+                                  color: Colors.black54),
                             ),
                             Divider(
                               thickness: 1,

@@ -11,6 +11,7 @@ import 'package:olx_project_parse/screens/category_screen/components/category_fi
 import 'package:olx_project_parse/screens/create_screen/components/hide_phone_field.dart';
 import 'package:olx_project_parse/screens/myAds_screen/my_ads_screen.dart';
 import 'package:olx_project_parse/stores/create_store.dart';
+import 'package:olx_project_parse/stores/home_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 
 import 'components/cep_field.dart';
@@ -54,6 +55,7 @@ class _CreateScreenState extends State<CreateScreen> {
     return WillPopScope(
       onWillPop: () {
         GetIt.I<PageStore>().setPage(0);
+        GetIt.I<HomeStore>().setSearch('');
         return;
       },
       child: Scaffold(
@@ -208,7 +210,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                         style: TextStyle(fontSize: 16),
                                       ),
                                       color: Colors.orange,
-                                      textColor: Colors.white,
+                                      textColor: Colors.black,
                                       splashColor: Colors.amber,
                                       materialTapTargetSize:
                                           MaterialTapTargetSize.shrinkWrap,
@@ -224,7 +226,7 @@ class _CreateScreenState extends State<CreateScreen> {
                                 return Center(
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.pink),
+                                        Colors.deepOrange),
                                     strokeWidth: 4,
                                   ),
                                 );

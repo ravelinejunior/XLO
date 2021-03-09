@@ -61,9 +61,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'XLO',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.deepOrange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: Colors.purple,
+        scaffoldBackgroundColor: Colors.deepOrange,
         appBarTheme: AppBarTheme(elevation: 0),
       ),
       supportedLocales: const [

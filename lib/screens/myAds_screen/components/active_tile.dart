@@ -19,7 +19,7 @@ class ActiveTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.pinkAccent,
+      splashColor: Colors.orangeAccent,
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => AdScreen(ad),
@@ -32,7 +32,7 @@ class ActiveTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Container(
-          color: Colors.pink[700].withAlpha(200),
+          color: Colors.orangeAccent[700].withAlpha(200),
           height: MediaQuery.of(context).size.height / 4.5,
           child: Row(
             children: [
@@ -90,7 +90,7 @@ class ActiveTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                                  color: Colors.black54),
                             ),
                             Divider(
                               thickness: 2,
@@ -100,7 +100,7 @@ class ActiveTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.white),
+                                  color: Colors.black54),
                             ),
                             Divider(
                               thickness: 2,
@@ -111,7 +111,7 @@ class ActiveTile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white),
+                                  color: Colors.black54),
                             ),
                           ],
                         ),
@@ -124,7 +124,7 @@ class ActiveTile extends StatelessWidget {
                 icon: Icon(
                   Icons.more_vert_sharp,
                   size: 18,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 onSelected: (choice) {
                   switch (choice.index) {
@@ -154,14 +154,14 @@ class ActiveTile extends StatelessWidget {
                               Icon(
                                 choice.iconData,
                                 size: 20,
-                                color: Colors.purple,
+                                color: Color.fromRGBO(255, 136, 0, 1),
                               ),
                               const SizedBox(width: 8),
                               Text(
                                 choice.title,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.purple,
+                                  color: Color.fromRGBO(255, 136, 0, 1),
                                 ),
                               )
                             ],

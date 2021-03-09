@@ -14,7 +14,7 @@ class OrderByType extends StatelessWidget {
         onTap: () {
           filterStore.setOrderByType(option);
         },
-        splashColor: Colors.pink.withAlpha(150),
+        splashColor: Color.fromRGBO(255, 136, 0, 1).withAlpha(150),
         child: Container(
           height: MediaQuery.of(context).size.height / 12,
           padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -22,7 +22,7 @@ class OrderByType extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(36),
             color: filterStore.orderByType == option
-                ? Colors.purple
+                ? Color.fromRGBO(255, 136, 0, 1)
                 : Colors.white,
             border: Border.all(
               color: filterStore.orderByType.index != option.index

@@ -35,7 +35,7 @@ class PageSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Divider(
-            color: Colors.grey,
+            color: Colors.black38,
           ),
         ),
         PageTile(
@@ -49,7 +49,7 @@ class PageSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Divider(
-            color: Colors.grey,
+            color: Colors.black38,
           ),
         ),
         PageTile(
@@ -64,7 +64,7 @@ class PageSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Divider(
-            color: Colors.grey,
+            color: Colors.black38,
           ),
         ),
         PageTile(
@@ -79,7 +79,7 @@ class PageSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Divider(
-            color: Colors.grey,
+            color: Colors.black38,
           ),
         ),
         PageTile(
@@ -93,7 +93,7 @@ class PageSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Divider(
-            color: Colors.grey,
+            color: Colors.black38,
           ),
         ),
 

@@ -28,7 +28,7 @@ class VendorTypeField extends StatelessWidget {
                       filterStore.setVendorType(VENDOR_TYPE_PARTICULAR);
                     }
                   },
-                  splashColor: Colors.purple.withAlpha(150),
+                  splashColor: Color.fromRGBO(255, 136, 0, 1).withAlpha(150),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 12,
                     width: MediaQuery.of(context).size.height / 4.7,
@@ -37,7 +37,7 @@ class VendorTypeField extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(36),
                       color: filterStore.isTypeParticular
-                          ? Colors.purple
+                          ? Color.fromRGBO(255, 136, 0, 1)
                           : Colors.transparent,
                       border: Border.all(
                         color: filterStore.isTypeParticular
@@ -68,7 +68,7 @@ class VendorTypeField extends StatelessWidget {
                       filterStore.setVendorType(VENDOR_TYPE_PROFESSIONAL);
                     }
                   },
-                  splashColor: Colors.purple.withAlpha(150),
+                  splashColor: Color.fromRGBO(255, 136, 0, 1).withAlpha(150),
                   child: Container(
                     height: MediaQuery.of(context).size.height / 12,
                     width: MediaQuery.of(context).size.height / 4.7,
@@ -77,7 +77,7 @@ class VendorTypeField extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(36),
                       color: filterStore.isTypeProfessional
-                          ? Colors.purple
+                          ? Color.fromRGBO(255, 136, 0, 1)
                           : Colors.transparent,
                       border: Border.all(
                         color: filterStore.isTypeProfessional

@@ -47,13 +47,13 @@ class CategoryScreen extends StatelessWidget {
                   itemBuilder: (_, index) {
                     final category = categories[index];
                     return InkWell(
-                      splashColor: Colors.purple.withAlpha(150),
+                      splashColor: Colors.deepOrange.withAlpha(150),
                       onTap: () {
                         Navigator.of(context).pop(category);
                       },
                       child: Container(
                         color: category.id == categorySelected?.id
-                            ? Colors.purple.withAlpha(50)
+                            ? Colors.deepOrange.withAlpha(50)
                             : null,
                         alignment: Alignment.center,
                         height: 56,

@@ -20,7 +20,7 @@ class EmptyCard extends StatelessWidget {
             child: Icon(
               Icons.border_clear,
               size: 200,
-              color: Colors.purple,
+              color: Color.fromRGBO(255, 136, 0, 1),
             ),
           ),
           Divider(),
@@ -41,9 +41,7 @@ class EmptyCard extends StatelessWidget {
                   Text(
                     text,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ],
               ),

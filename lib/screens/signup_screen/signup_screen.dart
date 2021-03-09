@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:olx_project_parse/components/errors/error_box.dart';
 
 import 'package:olx_project_parse/screens/login_screen/login_screen.dart';
+import 'package:olx_project_parse/stores/home_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 import 'package:olx_project_parse/stores/signup_store.dart';
 
@@ -37,6 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
       print("Cheguei aqui");
       Navigator.of(context).pop();
       GetIt.I<PageStore>().setPage(0);
+      GetIt.I<HomeStore>().setSearch('');
     });
   }
 
@@ -200,10 +202,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                   },
                                   child: !signupStore.showPass
                                       ? Icon(Icons.visibility,
-                                          color: Colors.purple)
+                                          color: Color.fromRGBO(255, 136, 0, 1))
                                       : Icon(
                                           Icons.visibility_off,
-                                          color: Colors.purple.withAlpha(150),
+                                          color: Color.fromRGBO(255, 136, 0, 1)
+                                              .withAlpha(150),
                                         ),
                                 ),
                               ),
@@ -243,10 +246,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 },
                                 child: !signupStore.showPassConfirm
                                     ? Icon(Icons.visibility,
-                                        color: Colors.purple)
+                                        color: Color.fromRGBO(255, 136, 0, 1))
                                     : Icon(
                                         Icons.visibility_off,
-                                        color: Colors.purple.withAlpha(150),
+                                        color: Color.fromRGBO(255, 136, 0, 1)
+                                            .withAlpha(150),
                                       ),
                               ),
                             ),
@@ -329,7 +333,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   'Entrar',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.purple,
+                                    color: Color.fromRGBO(255, 136, 0, 1),
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),

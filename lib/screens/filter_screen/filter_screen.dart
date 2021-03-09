@@ -34,62 +34,6 @@ class FilterScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  /* Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                        top: 8.0, bottom: 16, left: 8, right: 8),
-                    child: Text(
-                      'Localização',
-                      style: TextStyle(
-                          color: Colors.purple,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      alignLabelWithHint: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      contentPadding: const EdgeInsets.all(16),
-                      labelText: "Estado",
-                      labelStyle: TextStyle(
-                        color: Colors.black.withAlpha(100),
-                      ),
-                      suffixIcon:
-                          Icon(Icons.keyboard_arrow_down, color: Colors.purple),
-                      isDense: true,
-                    ),
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    focusNode: focusNode1,
-                    onFieldSubmitted: (value) => focusNode2.requestFocus(),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      alignLabelWithHint: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      contentPadding: const EdgeInsets.all(16),
-                      labelText: "Cidade",
-                      labelStyle: TextStyle(
-                        color: Colors.black.withAlpha(100),
-                      ),
-                      suffixIcon:
-                          Icon(Icons.keyboard_arrow_down, color: Colors.purple),
-                      isDense: true,
-                    ),
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.done,
-                    focusNode: focusNode2,
-                    onTap: () => focusNode2.unfocus(),
-                  ),
-                  const SizedBox(height: 8),
-                  Divider(), */
                   OrderByField(filterStore),
                   const SizedBox(height: 4),
                   Divider(),

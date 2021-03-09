@@ -10,7 +10,7 @@ class SectionTitle extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: Colors.purple,
+          color: Color.fromRGBO( 255, 136, 0,1),
           fontSize: 13,
           fontWeight: FontWeight.w400,
         ),

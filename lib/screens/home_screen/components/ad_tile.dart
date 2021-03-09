@@ -10,7 +10,7 @@ class AdTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.pink,
+      splashColor: Colors.orange,
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => AdScreen(adItem),
@@ -22,7 +22,7 @@ class AdTile extends StatelessWidget {
         child: Card(
           elevation: 5,
           clipBehavior: Clip.antiAlias,
-          color: Colors.pink.withAlpha(150),
+          color: Colors.orangeAccent.withAlpha(150),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
           ),
@@ -31,16 +31,6 @@ class AdTile extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 4,
                 width: MediaQuery.of(context).size.height / 5,
-                /* child:FadeInImage.assetNetwork(
-                  placeholder: 'assets/loading.gif',
-                  image: adItem.images.isEmpty
-                      ? 'https://preppykitchen.com/wp-content/uploads/2019/06/Ultimate-Chocolate-Cake-feature-1200-768x1089.jpg'
-                      : adItem.images.last,
-                  fit: BoxFit.cover,
-                  imageCacheHeight: 300,
-                  imageCacheWidth: 300,
-                  fadeInCurve: Curves.bounceOut,
-                ), */
                 child: Carousel(
                   images: adItem.images
                       .map(
@@ -82,7 +72,7 @@ class AdTile extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                            color: Colors.black54),
                       ),
                       Divider(
                         color: Colors.grey[100].withAlpha(100),
@@ -93,7 +83,7 @@ class AdTile extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Colors.white),
+                            color: Colors.black54),
                       ),
                       Divider(
                         color: Colors.grey[100].withAlpha(100),
@@ -107,7 +97,7 @@ class AdTile extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                            color: Colors.black54),
                       ),
                     ],
                   ),

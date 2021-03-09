@@ -15,13 +15,13 @@ class PageTile extends StatelessWidget {
       title: Text(
         label,
         style: TextStyle(
-          color: highlighted ? Colors.purple : Colors.black54,
+          color: highlighted ? Color.fromRGBO(255, 136, 0, 1) : Colors.black54,
           fontWeight: FontWeight.bold,
         ),
       ),
       leading: Icon(
         iconData,
-        color: highlighted ? Colors.purple : Colors.black54,
+        color: highlighted ? Color.fromRGBO(255, 136, 0, 1) : Colors.black54,
       ),
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 10),

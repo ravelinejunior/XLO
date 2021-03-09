@@ -25,11 +25,11 @@ class DescriptionPanel extends StatelessWidget {
             trimMode: TrimMode.Line,
             trimCollapsedText: '  Ver descrição completa',
             trimExpandedText: '   Ver menos',
-            colorClickableText: Colors.purple,
+            colorClickableText: Colors.deepOrange,
             moreStyle: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: Colors.purple),
+                color: Colors.deepOrange),
             lessStyle: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,

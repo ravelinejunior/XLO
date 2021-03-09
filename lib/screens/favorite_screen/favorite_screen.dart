@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:olx_project_parse/components/custom_drawer/custom_drawer.dart';
 import 'package:olx_project_parse/components/errors/empty_screen.dart';
 import 'package:olx_project_parse/stores/favorite_store.dart';
+import 'package:olx_project_parse/stores/home_store.dart';
 import 'package:olx_project_parse/stores/page_store.dart';
 
 import 'components/favorite_tile.dart';
@@ -20,6 +21,7 @@ class FavoritesScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () {
         GetIt.I<PageStore>().setPage(0);
+        GetIt.I<HomeStore>().setSearch('');
 
         return;
       },

@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> refreshList() async {
-    await Future.delayed(Duration(seconds: 2)).then((_) {
+    await Future.delayed(Duration(seconds: 1)).then((_) {
       homeStore.setSearch('');
     });
   }
@@ -42,10 +42,17 @@ class _HomeScreenState extends State<HomeScreen> {
         await showDialog(
           context: context,
           child: AlertDialog(
-            title: Text('Sair'),
+            title: Text(
+              'Sair',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Colors.white38,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            content: Text('Encontrou o que procurava?\nDeseja sair do app?'),
+            content: Text(
+              'Encontrou o que procurava?\nDeseja sair do app?',
+              style: TextStyle(color: Colors.white),
+            ),
             buttonPadding: const EdgeInsets.all(8),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
@@ -84,12 +91,12 @@ class _HomeScreenState extends State<HomeScreen> {
         );
         return finishApp;
       },
-      child: SafeArea(
-        top: false,
-        child: RefreshIndicator(
-          onRefresh: refreshList,
-          backgroundColor: Colors.white,
-          color: Colors.purple,
+      child: RefreshIndicator(
+        onRefresh: refreshList,
+        backgroundColor: Colors.white,
+        color: Color.fromRGBO(255, 136, 0, 1),
+        child: SafeArea(
+          top: false,
           child: Scaffold(
             appBar: AppBar(
               title: Observer(

@@ -12,16 +12,16 @@ class CustomDrawerHeader extends StatelessWidget {
     return DrawerHeader(
       curve: Curves.bounceInOut,
       decoration: BoxDecoration(
-        color: Colors.purple,
+        color: Color.fromRGBO(238, 137, 89, 1),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.purpleAccent,
+            backgroundColor: Color.fromRGBO(238, 137, 89, 1),
             child: Icon(
               Icons.person,
-              color: Colors.white,
+              color: Colors.black,
               size: 36,
             ),
           ),
@@ -29,7 +29,7 @@ class CustomDrawerHeader extends StatelessWidget {
           //coluna informartiva user
           Expanded(
             child: InkWell(
-              splashColor: Colors.deepPurple,
+              splashColor: Colors.deepOrangeAccent,
               onTap: () => {
                 //fechar drawer
                 Navigator.of(context).pop(),
@@ -55,27 +55,27 @@ class CustomDrawerHeader extends StatelessWidget {
                           ? userManagerStore.user.name
                           : "Acesse sua conta !",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black54,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                       overflow: TextOverflow.fade,
                     ),
                   ),
-                  Divider(color: Colors.white),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      userManagerStore.isLoggedIn
-                          ? userManagerStore.user.email
-                          : "Clique aqui !!! ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      overflow: TextOverflow.fade,
+                  Divider(
+                    color: Colors.black87,
+                    height: 30,
+                  ),
+                  Text(
+                    userManagerStore.isLoggedIn
+                        ? userManagerStore.user.email
+                        : "Clique aqui !!! ",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
                     ),
+                    overflow: TextOverflow.fade,
                   ),
                   if (userManagerStore.isLoggedIn) const SizedBox(height: 16),
                   if (userManagerStore.isLoggedIn)
@@ -86,7 +86,7 @@ class CustomDrawerHeader extends StatelessWidget {
                         height: MediaQuery.of(context).size.height / 10,
                         child: RaisedButton(
                           elevation: 10,
-                          splashColor: Colors.pink[300],
+                          splashColor: Colors.orangeAccent[300],
                           onPressed: () {
                             userManagerStore.userLogout();
                             Navigator.of(context).pop();
@@ -95,9 +95,9 @@ class CustomDrawerHeader extends StatelessWidget {
                             'Logout',
                             style: TextStyle(fontSize: 12),
                           ),
-                          color: Colors.pinkAccent,
+                          color: Colors.deepOrange,
                           shape: StadiumBorder(),
-                          textColor: Colors.white,
+                          textColor: Colors.black54,
                         ),
                       ),
                     ),

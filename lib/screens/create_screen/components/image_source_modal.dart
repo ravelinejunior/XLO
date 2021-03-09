@@ -28,25 +28,33 @@ class _ImageSourceModalState extends State<ImageSourceModal> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FlatButton.icon(
-              splashColor: Colors.pinkAccent.withAlpha(100),
+              splashColor: Colors.deepOrange.withAlpha(100),
               onPressed: getFromCamera,
-              icon: Icon(Icons.camera, color: Colors.pink),
+              icon: Icon(
+                Icons.camera,
+                color: Color.fromARGB(1, 255, 136, 0),
+              ),
               label: const Text(
                 'Câmera',
-                style:
-                    TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Color.fromARGB(1, 255, 136, 0),
+                    fontWeight: FontWeight.bold),
               ),
               textColor: Colors.black,
             ),
             Divider(),
             FlatButton.icon(
-              splashColor: Colors.pinkAccent.withAlpha(100),
+              splashColor: Colors.deepOrange.withAlpha(100),
               onPressed: getFromGallery,
-              icon: Icon(Icons.camera_roll, color: Colors.pink),
+              icon: Icon(
+                Icons.camera_roll,
+                color: Color.fromARGB(1, 255, 136, 0),
+              ),
               label: const Text(
                 'Galeria',
-                style:
-                    TextStyle(color: Colors.pink, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Color.fromARGB(1, 255, 136, 0),
+                    fontWeight: FontWeight.bold),
               ),
               textColor: Colors.black,
             ),
@@ -112,14 +120,14 @@ class _ImageSourceModalState extends State<ImageSourceModal> {
       ],
       androidUiSettings: AndroidUiSettings(
         toolbarTitle: 'Editar Imagem',
-        toolbarColor: Colors.purple,
+        toolbarColor: Color.fromRGBO(255, 136, 0, 1),
         toolbarWidgetColor: Colors.white,
         initAspectRatio: CropAspectRatioPreset.original,
         lockAspectRatio: false,
-        activeControlsWidgetColor: Colors.pink,
+        activeControlsWidgetColor: Color.fromRGBO(255, 136, 0, 1),
         showCropGrid: true,
         hideBottomControls: false,
-        statusBarColor: Colors.purple,
+        statusBarColor: Color.fromRGBO(255, 136, 0, 1),
       ),
       iosUiSettings: IOSUiSettings(
         title: "Editar Imagem",

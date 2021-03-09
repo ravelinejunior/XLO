@@ -59,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //botao do facebook
-                    Container(
+                    /*     Container(
                       height: 54,
                       margin: const EdgeInsets.fromLTRB(16, 32, 16, 16),
                       child: RaisedButton(
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         shape: StadiumBorder(),
                         textColor: Colors.white,
                       ),
-                    ),
+                    ), */
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -174,10 +174,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 loginStore.setShowPass(!loginStore.showPass);
                               },
                               child: !loginStore.showPass
-                                  ? Icon(Icons.visibility, color: Colors.purple)
+                                  ? Icon(Icons.visibility,
+                                      color: Color.fromRGBO(255, 136, 0, 1))
                                   : Icon(
                                       Icons.visibility_off,
-                                      color: Colors.purple.withAlpha(150),
+                                      color: Color.fromRGBO(255, 136, 0, 1)
+                                          .withAlpha(150),
                                     ),
                             ),
                           ),
@@ -198,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             'Esqueci minha senha',
                             style: TextStyle(
-                              color: Colors.purple,
+                              color: Color.fromRGBO(255, 136, 0, 1),
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -253,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 24),
                     InkWell(
-                      splashColor: Colors.purple,
+                      splashColor: Colors.deepOrangeAccent,
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (_) => SignupScreen(),
                       )),
@@ -271,7 +273,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Cadastre-se',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.purple,
+                                color: Color.fromRGBO(255, 136, 0, 1),
                                 decoration: TextDecoration.underline,
                               ),
                             ),

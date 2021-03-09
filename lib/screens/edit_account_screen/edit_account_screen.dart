@@ -49,9 +49,9 @@ class EditAccountScreen extends StatelessWidget {
                             labels: ['Particular', 'Profissional'],
                             icons: [Icons.person, Icons.shop],
                             activeBgColors: !editAccountStore.loading
-                                ? [Colors.purple, Colors.pink]
+                                ? [Color.fromRGBO(255, 136, 0, 1), Colors.pink]
                                 : [
-                                    Colors.purple.withAlpha(100),
+                                    Colors.deepOrange.withAlpha(100),
                                     Colors.pink.withAlpha(100)
                                   ],
                             onToggle: editAccountStore.setUserType,
@@ -153,10 +153,13 @@ class EditAccountScreen extends StatelessWidget {
                                     .setShowPass(!editAccountStore.showPass);
                               },
                               child: !editAccountStore.showPass
-                                  ? Icon(Icons.visibility, color: Colors.purple)
+                                  ? Icon(
+                                      Icons.visibility,
+                                      color: Color.fromRGBO(255, 136, 0, 1),
+                                    )
                                   : Icon(
                                       Icons.visibility_off,
-                                      color: Colors.purple.withAlpha(150),
+                                      color: Colors.deepOrange.withAlpha(150),
                                     ),
                             ),
                             errorText: editAccountStore.passwordError),
@@ -193,10 +196,13 @@ class EditAccountScreen extends StatelessWidget {
                                 !editAccountStore.showPassConfirm);
                           },
                           child: !editAccountStore.showPassConfirm
-                              ? Icon(Icons.visibility, color: Colors.purple)
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Color.fromRGBO(255, 136, 0, 1),
+                                )
                               : Icon(
                                   Icons.visibility_off,
-                                  color: Colors.purple.withAlpha(150),
+                                  color: Colors.deepOrange.withAlpha(150),
                                 ),
                         ),
                       ),
@@ -282,8 +288,9 @@ class EditAccountScreen extends StatelessWidget {
                     else
                       return Center(
                         child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.purple),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color.fromRGBO(255, 136, 0, 1),
+                          ),
                           strokeWidth: 6,
                         ),
                       );

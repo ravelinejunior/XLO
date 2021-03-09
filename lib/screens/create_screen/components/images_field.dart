@@ -37,7 +37,7 @@ class ImagesField extends StatelessWidget {
                   if (index == createStore.images.length)
                     return InkWell(
                       enableFeedback: !createStore.loading,
-                      splashColor: Colors.pink,
+                      splashColor: Colors.orange,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 4.0,
@@ -74,7 +74,7 @@ class ImagesField extends StatelessWidget {
                     );
                   else
                     return InkWell(
-                      splashColor: Colors.pink,
+                      splashColor: Colors.orange,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8.0,

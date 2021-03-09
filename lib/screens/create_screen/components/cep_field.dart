@@ -56,7 +56,8 @@ class CepField extends StatelessWidget {
                   cepStore.loading)
                 return Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.pink),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Colors.deepOrange),
                     strokeWidth: 4,
                   ),
                 );
@@ -85,7 +86,7 @@ class CepField extends StatelessWidget {
                 final address = cepStore.address;
                 return Card(
                   clipBehavior: Clip.antiAlias,
-                  color: Colors.purple.withAlpha(200),
+                  color: Colors.orange.withAlpha(200),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

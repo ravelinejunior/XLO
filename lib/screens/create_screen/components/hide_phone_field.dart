@@ -16,7 +16,7 @@ class HidePhoneField extends StatelessWidget {
             return Checkbox(
               value: createStore.hidePhone,
               onChanged: createStore.setHidePhone,
-              activeColor: Colors.purple,
+              activeColor: Color.fromARGB(1, 255, 136, 0),
             );
           }),
           Expanded(
